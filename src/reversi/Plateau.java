@@ -6,10 +6,12 @@ public class Plateau
     private int hauteur;
     // tabJetons[hauteur][largeur]
     private char[][] tabJetons;
+    private Joueur j1;
+    private Joueur j2;
 
     public Plateau() throws Exception
     {
-        this(8,8);
+        this(8);
     }
 
     public Plateau(int taille) throws Exception
@@ -17,11 +19,14 @@ public class Plateau
         this(taille, taille);
     }
 
+    // TODO: Utiliser une Factory plutôt que d'utiliser une Exception
     public Plateau(int largeur, int hauteur) throws Exception
     {
         this.largeur = largeur;
         this.hauteur = hauteur;
         this.tabJetons = new char[hauteur][largeur];
+        this.j1 = new Joueur('N', "Joueur1");
+        this.j2 = new Joueur('B', "Joueur2");
 
         // TODO: réfléchir sur le comportement exact (exception ou +/- 1?)
         if (largeur % 2 != 0)
@@ -35,6 +40,8 @@ public class Plateau
 
         this.tabJetons[hauteur/2  ][largeur/2-1] = 'B';
         this.tabJetons[hauteur/2-1][largeur/2  ] = 'B';
+
+
     }
 
     public int getLargeur() { return this.largeur; }
@@ -58,6 +65,27 @@ public class Plateau
 
         this.tabJetons[y][x] = jeton;
         return true;
+    }
+
+    public String getNomJoueur(int i)
+    {
+        if(i==1)return this.j1.getNom();
+        if(i==2)return this.j2.getNom();
+
+        return "Indefini";
+    }
+
+    public char getCase(int x, int y)
+    {
+        return tabJetons[y][x];
+    }
+
+    public int getScoreJoueur(int joueur)
+    {
+        if(joueur == 1)return this.j1.getScore(this);
+        if(joueur == 2)return this.j2.getScore(this);
+
+        return 0;
     }
 
     @Override
