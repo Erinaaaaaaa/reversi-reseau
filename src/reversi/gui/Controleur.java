@@ -18,7 +18,7 @@ public class Controleur{
 
     public String getNomJoueur(int i)
     {
-        return plateau.getNomJoueur(i);
+        return null; // plateau.getNomJoueur(i);
     }
 
     public int getLargeurPlateau(){return this.plateau.getLargeur();}
@@ -28,7 +28,7 @@ public class Controleur{
         return this.plateau.getCase(x,y);
     }
     public int getScoreJoueur(int i){
-        return this.plateau.getScoreJoueur(i);
+        return -1; //this.plateau.getScoreJoueur(i);
     }
 
     /*public boolean jouer(int x, int y)

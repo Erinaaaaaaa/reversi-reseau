@@ -25,7 +25,7 @@ class PlateauTest
     }
 
     @Test
-    public void peutJouerTest()
+    void peutJouerTest()
     {
         assertFalse(plateau.peutJouer('A'));
         assertTrue (plateau.peutJouer('B'));

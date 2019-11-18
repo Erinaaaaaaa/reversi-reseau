@@ -110,13 +110,10 @@ public class Plateau
                 break;
         }
 
-        if (steps <= 1)
-            return false;
-
-        return true;
+        return steps > 1;
     }
 
-    public boolean placer(char jeton, int x, int y)
+    public boolean jouer(char jeton, int x, int y)
     {
         // Placement invalide
         if (jeton != 'B' && jeton != 'N')
@@ -130,35 +127,54 @@ public class Plateau
         if (this.tabJetons[y][x] != '\0')
             return false;
 
+        // Emplacement valide
         if (peutPlacer(jeton, x, y))
-            // TODO: GESTION DES PLACEMENTS
+        {
+            placer(jeton, x, y);
+            return true;
+        }
 
-        /// this.tabJetons[y][x] = jeton;
-        return true;
+        return false;
     }
 
-    // public String getNomJoueur(int i)
-    // {
-    //     if(i==1)return this.j1.getNom();
-    //     if(i==2)return this.j2.getNom();
-    //
-    //     return "Indefini";
-    // }
+    private void placer(char jeton, int x, int y)
+    {
+        if (ligneDansCetteDirection(jeton, x, y,  0, -1))
+            traiterLigne(jeton, x ,y,   0, -1);
+        if (ligneDansCetteDirection(jeton, x, y,  1, -1))
+            traiterLigne(jeton, x ,y,   1, -1);
+        if (ligneDansCetteDirection(jeton, x, y,  1,  0))
+            traiterLigne(jeton, x ,y,   1,  0);
+        if (ligneDansCetteDirection(jeton, x, y,  1,  1))
+            traiterLigne(jeton, x ,y,   1,  1);
+        if (ligneDansCetteDirection(jeton, x, y,  0,  1))
+            traiterLigne(jeton, x ,y,   0,  1);
+        if (ligneDansCetteDirection(jeton, x, y, -1,  1))
+            traiterLigne(jeton, x ,y,  -1,  1);
+        if (ligneDansCetteDirection(jeton, x, y, -1,  0))
+            traiterLigne(jeton, x ,y,  -1,  0);
+        if (ligneDansCetteDirection(jeton, x, y, -1, -1))
+            traiterLigne(jeton, x ,y,  -1, -1);
+    }
+
+    private void traiterLigne(char jeton, int x, int y, int deltaX, int deltaY)
+    {
+        int localX = x,
+            localY = y;
+
+        do
+        {
+            tabJetons[localY][localX] = jeton;
+            localX+=deltaX;
+            localY+=deltaY;
+        } while (tabJetons[localY][localX] != jeton);
+    }
 
     public char getCase(int x, int y)
     {
         return tabJetons[y][x];
     }
 
-    // public int getScoreJoueur(int joueur)
-    // {
-    //     if(joueur == 1) return this.j1.getScore(this);
-    //     if(joueur == 2) return this.j2.getScore(this);
-    //
-    //     return 0;
-    // }
-
-    @Override
     public String toString()
     {
         StringBuilder sb = new StringBuilder();
