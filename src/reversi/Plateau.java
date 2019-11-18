@@ -9,18 +9,7 @@ public class Plateau
     private Joueur j1;
     private Joueur j2;
 
-    public Plateau() throws Exception
-    {
-        this(8);
-    }
-
-    public Plateau(int taille) throws Exception
-    {
-        this(taille, taille);
-    }
-
-    // TODO: Utiliser une Factory plutôt que d'utiliser une Exception
-    public Plateau(int largeur, int hauteur) throws Exception
+    private Plateau(int largeur, int hauteur)
     {
         this.largeur = largeur;
         this.hauteur = hauteur;
@@ -28,24 +17,99 @@ public class Plateau
         this.j1 = new Joueur('N', "Joueur1");
         this.j2 = new Joueur('B', "Joueur2");
 
-        // TODO: réfléchir sur le comportement exact (exception ou +/- 1?)
-        if (largeur % 2 != 0)
-            throw new Exception("La largeur du plateau doit être paire");
-
-        if (hauteur % 2 != 0)
-            throw new Exception("La hauteur du plateau doit être paire");
-
         this.tabJetons[hauteur/2-1][largeur/2-1] = 'N';
         this.tabJetons[hauteur/2  ][largeur/2  ] = 'N';
 
         this.tabJetons[hauteur/2  ][largeur/2-1] = 'B';
         this.tabJetons[hauteur/2-1][largeur/2  ] = 'B';
+    }
 
+    public static Plateau creer()
+    {
+        return creer(8);
+    }
 
+    public static Plateau creer(int cote)
+    {
+        return creer(cote, cote);
+    }
+
+    public static Plateau creer(int largeur, int hauteur)
+    {
+        if (largeur %2 != 0 || largeur < 4)
+            return null;
+
+        if (hauteur %2 != 0 || hauteur < 4)
+            return null;
+
+        return new Plateau(largeur, hauteur);
     }
 
     public int getLargeur() { return this.largeur; }
     public int getHauteur() { return this.hauteur; }
+
+    public boolean peutJouer(char jeton)
+    {
+        for (int i = 0; i < this.largeur; i++)
+        for (int j = 0; j < this.hauteur; j++)
+        {
+            if (peutPlacer(jeton, i, j))
+                return true;
+        }
+        return false;
+    }
+
+    // Méthode d'application des règles
+    private boolean peutPlacer(char jeton, int x, int y)
+    {
+        if (this.tabJetons[y][x] != '\0')
+            return false;
+
+        // ordre des directions
+        // N, NE, E, SE, S, SO, O, NO
+        boolean valide = false;
+
+        valide |= ligneDansCetteDirection(jeton, x, y, 0, -1);  // Nord
+        valide |= ligneDansCetteDirection(jeton, x, y,  1, -1);  // Nord-est
+        valide |= ligneDansCetteDirection(jeton, x, y,  1,  0);  // Est
+        valide |= ligneDansCetteDirection(jeton, x, y,  1,  1);  // Sud-est
+        valide |= ligneDansCetteDirection(jeton, x, y,  0,  1);  // Sud
+        valide |= ligneDansCetteDirection(jeton, x, y, -1,  1);  // Sud-ouest
+        valide |= ligneDansCetteDirection(jeton, x, y, -1,  0);  // Ouest
+        valide |= ligneDansCetteDirection(jeton, x, y, -1, -1);  // Nord-ouest
+
+        return valide;
+    }
+
+    private boolean ligneDansCetteDirection(char jeton, int x, int y, int deltaX, int deltaY)
+    {
+        int localX = x,
+            localY = y;
+        int steps = 0;
+
+        while (localX >= 0 && localX < largeur && localY >= 0 && localY < hauteur)
+        {
+            localX += deltaX;
+            localY += deltaY;
+            steps++;
+
+            if (localX < 0 || localX >= largeur || localY < 0 || localY >= hauteur)
+                return false;
+
+            char localJeton = tabJetons[localY][localX];
+
+            if (localJeton == '\0')
+                return false;
+
+            if (localJeton == jeton)
+                break;
+        }
+
+        if (steps <= 1)
+            return false;
+
+        return true;
+    }
 
     public boolean placer(char jeton, int x, int y)
     {
@@ -61,7 +125,7 @@ public class Plateau
         if (this.tabJetons[y][x] != '\0')
             return false;
 
-        // TODO: vérification dans les 8 directions si le placement est valide ou non
+        // TODO: Application des règles
 
         this.tabJetons[y][x] = jeton;
         return true;

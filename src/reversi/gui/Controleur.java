@@ -9,14 +9,11 @@ public class Controleur{
 
     private int joueur;
 
-    public Controleur() throws Exception {
-
-
+    public Controleur()
+    {
         int joueur = 1;
-
-        this.plateau = new Plateau(8);
+        this.plateau = Plateau.creer();
         this.IHM = new FrameJeu(this);
-
     }
 
     public String getNomJoueur(int i)

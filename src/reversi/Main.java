@@ -6,16 +6,15 @@ public class Main
 {
     public static void main(String[] args) throws Exception
     {
-        Plateau plateau = new Plateau();
+        Plateau plateau = Plateau.creer();
         Scanner s = new Scanner(System.in);
 
         while (true)
         {
             afficher(plateau);
-            System.out.print("x = "); int x = s.nextInt();
-            System.out.print("y = "); int y = s.nextInt();
+            System.out.print("couleur = "); char c = s.nextLine().charAt(0);
 
-            System.out.println("Placé: " + plateau.placer('B', x, y));
+            System.out.println("Peut jouer: " + plateau.peutJouer(c));
         }
     }
 
