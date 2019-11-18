@@ -6,16 +6,16 @@ public class Plateau
     private int hauteur;
     // tabJetons[hauteur][largeur]
     private char[][] tabJetons;
-    private Joueur j1;
-    private Joueur j2;
+    // private Joueur j1;
+    // private Joueur j2;
 
     private Plateau(int largeur, int hauteur)
     {
         this.largeur = largeur;
         this.hauteur = hauteur;
         this.tabJetons = new char[hauteur][largeur];
-        this.j1 = new Joueur('N', "Joueur1");
-        this.j2 = new Joueur('B', "Joueur2");
+        // this.j1 = new Joueur('N', "Joueur1");
+        // this.j2 = new Joueur('B', "Joueur2");
 
         this.tabJetons[hauteur/2-1][largeur/2-1] = 'N';
         this.tabJetons[hauteur/2  ][largeur/2  ] = 'N';
@@ -59,8 +59,13 @@ public class Plateau
         return false;
     }
 
-    // Méthode d'application des règles
     private boolean peutPlacer(char jeton, int x, int y)
+    {
+        return peutPlacer(jeton, x, y, false);
+    }
+
+    // Méthode d'application des règles
+    private boolean peutPlacer(char jeton, int x, int y, boolean jouer)
     {
         if (this.tabJetons[y][x] != '\0')
             return false;
@@ -69,7 +74,7 @@ public class Plateau
         // N, NE, E, SE, S, SO, O, NO
         boolean valide = false;
 
-        valide |= ligneDansCetteDirection(jeton, x, y, 0, -1);  // Nord
+        valide |= ligneDansCetteDirection(jeton, x, y,  0, -1);  // Nord
         valide |= ligneDansCetteDirection(jeton, x, y,  1, -1);  // Nord-est
         valide |= ligneDansCetteDirection(jeton, x, y,  1,  0);  // Est
         valide |= ligneDansCetteDirection(jeton, x, y,  1,  1);  // Sud-est
@@ -125,32 +130,33 @@ public class Plateau
         if (this.tabJetons[y][x] != '\0')
             return false;
 
-        // TODO: Application des règles
+        if (peutPlacer(jeton, x, y))
+            // TODO: GESTION DES PLACEMENTS
 
-        this.tabJetons[y][x] = jeton;
+        /// this.tabJetons[y][x] = jeton;
         return true;
     }
 
-    public String getNomJoueur(int i)
-    {
-        if(i==1)return this.j1.getNom();
-        if(i==2)return this.j2.getNom();
-
-        return "Indefini";
-    }
+    // public String getNomJoueur(int i)
+    // {
+    //     if(i==1)return this.j1.getNom();
+    //     if(i==2)return this.j2.getNom();
+    //
+    //     return "Indefini";
+    // }
 
     public char getCase(int x, int y)
     {
         return tabJetons[y][x];
     }
 
-    public int getScoreJoueur(int joueur)
-    {
-        if(joueur == 1)return this.j1.getScore(this);
-        if(joueur == 2)return this.j2.getScore(this);
-
-        return 0;
-    }
+    // public int getScoreJoueur(int joueur)
+    // {
+    //     if(joueur == 1) return this.j1.getScore(this);
+    //     if(joueur == 2) return this.j2.getScore(this);
+    //
+    //     return 0;
+    // }
 
     @Override
     public String toString()
