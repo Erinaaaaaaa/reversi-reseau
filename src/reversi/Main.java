@@ -4,9 +4,9 @@ import java.util.Scanner;
 
 public class Main
 {
-    public static void main(String[] args) throws Exception
+    public static void main(String[] args)
     {
-        Plateau plateau = Plateau.creer();
+        Plateau plateau = Plateau.creer(12, 8, null);
         Scanner s = new Scanner(System.in);
 
         char[] joueurs = {'N', 'B'};

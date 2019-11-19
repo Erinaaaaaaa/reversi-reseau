@@ -12,7 +12,7 @@ public class Controleur{
     public Controleur()
     {
         int joueur = 1;
-        this.plateau = Plateau.creer();
+        this.plateau = Plateau.creer(null);
         this.IHM = new FrameJeu(this);
     }
 

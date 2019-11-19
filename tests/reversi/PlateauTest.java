@@ -15,7 +15,7 @@ class PlateauTest
     @BeforeEach
     void setUp()
     {
-        plateau = Plateau.creer();
+        plateau = Plateau.creer(null);
     }
 
     @AfterEach

@@ -9,6 +9,6 @@ class Jeu
 
     Jeu(Joueur j1, Joueur j2)
     {
-            p = Plateau.creer();
+            p = Plateau.creer(null);
     }
 }

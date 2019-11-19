@@ -1,21 +1,19 @@
 package reversi;
 
+import java.util.ArrayList;
+
 public class Plateau
 {
     private int largeur;
     private int hauteur;
     // tabJetons[hauteur][largeur]
     private char[][] tabJetons;
-    // private Joueur j1;
-    // private Joueur j2;
 
-    private Plateau(int largeur, int hauteur)
+    private Plateau(int largeur, int hauteur, ArrayList<Joueur> joueurs)
     {
         this.largeur = largeur;
         this.hauteur = hauteur;
         this.tabJetons = new char[hauteur][largeur];
-        // this.j1 = new Joueur('N', "Joueur1");
-        // this.j2 = new Joueur('B', "Joueur2");
 
         this.tabJetons[hauteur/2-1][largeur/2-1] = 'N';
         this.tabJetons[hauteur/2  ][largeur/2  ] = 'N';
@@ -24,17 +22,17 @@ public class Plateau
         this.tabJetons[hauteur/2-1][largeur/2  ] = 'B';
     }
 
-    public static Plateau creer()
+    public static Plateau creer(ArrayList<Joueur> joueurs)
     {
-        return creer(8);
+        return creer(8, joueurs);
     }
 
-    public static Plateau creer(int cote)
+    public static Plateau creer(int cote, ArrayList<Joueur> joueurs)
     {
-        return creer(cote, cote);
+        return creer(cote, cote, joueurs);
     }
 
-    public static Plateau creer(int largeur, int hauteur)
+    public static Plateau creer(int largeur, int hauteur, ArrayList<Joueur> joueurs)
     {
         if (largeur %2 != 0 || largeur < 4)
             return null;
@@ -42,7 +40,7 @@ public class Plateau
         if (hauteur %2 != 0 || hauteur < 4)
             return null;
 
-        return new Plateau(largeur, hauteur);
+        return new Plateau(largeur, hauteur, joueurs);
     }
 
     public int getLargeur() { return this.largeur; }
@@ -59,13 +57,8 @@ public class Plateau
         return false;
     }
 
-    private boolean peutPlacer(char jeton, int x, int y)
-    {
-        return peutPlacer(jeton, x, y, false);
-    }
-
     // Méthode d'application des règles
-    private boolean peutPlacer(char jeton, int x, int y, boolean jouer)
+    private boolean peutPlacer(char jeton, int x, int y)
     {
         if (this.tabJetons[y][x] != '\0')
             return false;
@@ -179,15 +172,28 @@ public class Plateau
     {
         StringBuilder sb = new StringBuilder();
 
+        for (char slot : tabJetons[0])
+        {
+            sb.append("+---");
+        }
+        sb.append("+\n");
+
         for (char[] row : tabJetons)
         {
+            sb.append("|");
             for (char slot : row)
             {
-                if (slot == '\0') sb.append('x');
-                else sb.append(slot);
-                sb.append(' ');
+
+                if (slot == '\0') sb.append("   |");
+                else sb.append(" ").append(slot).append(" |");
             }
-            sb.append('\n');
+            sb.append("\n");
+
+            for (char slot : row)
+            {
+                sb.append("+---");
+            }
+            sb.append("+\n");
         }
 
         return sb.deleteCharAt(sb.length()-1).toString();

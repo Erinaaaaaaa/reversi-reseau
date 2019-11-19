@@ -10,6 +10,8 @@ public class Partie
 
     private int joueurCourant;
 
+    private boolean pret = false;
+
     public Partie(ArrayList<Joueur> joueurs)
     {
         this((Joueur[])(joueurs.toArray()));
@@ -17,14 +19,27 @@ public class Partie
 
     public Partie(Joueur[] joueurs)
     {
-        this.plateau = Plateau.creer();
         this.alJoueurs = new ArrayList<>();
         this.alJoueurs.addAll(Arrays.asList(joueurs));
 
         this.joueurCourant = 0;
+
+        this.initialiserJoueurs();
+
+        this.plateau = Plateau.creer(alJoueurs);
     }
 
-    private void changerJoueur()
+    private void initialiserJoueurs()
+    {
+        for (int i = 0; i < alJoueurs.size(); i++)
+        {
+            Joueur j = alJoueurs.get(i);
+            j.setJeton((char)('A' + i));
+            j.setCouleur(Couleur.values()[i]);
+        }
+    }
+
+    private void joueurSuivant()
     {
         joueurCourant++;
 
@@ -36,19 +51,22 @@ public class Partie
 
     public int getNbJoueurs() { return this.alJoueurs.size(); }
 
-    /**
-     *
-     * @param x Position horizontale, base 0
-     * @param y Position verticale, base 0
-     * @return Vrai si le coup était valide, faux sinon
-     */
     public boolean jouer(int x, int y)
     {
-        return false;
+        boolean result = plateau.jouer(this.getJoueurCourant().getJeton(), x, y);
+
+        if (result) joueurSuivant();
+
+        return result;
     }
 
     public boolean peutJouer()
     {
-        return true;
+        return this.plateau.peutJouer(this.getJoueurCourant().getJeton());
+    }
+
+    public String getAffichagePlateau()
+    {
+        return this.plateau.toString();
     }
 }
