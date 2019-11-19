@@ -26,7 +26,7 @@ public class Partie
 
         this.initialiserJoueurs();
 
-        this.plateau = Plateau.creer(alJoueurs);
+        this.plateau = Plateau.creer(4, alJoueurs);
     }
 
     private void initialiserJoueurs()
@@ -39,7 +39,7 @@ public class Partie
         }
     }
 
-    private void joueurSuivant()
+    public void joueurSuivant()
     {
         joueurCourant++;
 
@@ -65,8 +65,37 @@ public class Partie
         return this.plateau.peutJouer(this.getJoueurCourant().getJeton());
     }
 
-    public String getAffichagePlateau()
+    public boolean bloquee()
     {
-        return this.plateau.toString();
+        for (Joueur j : alJoueurs)
+        {
+            if (plateau.peutJouer(j.getJeton()))
+                return false;
+        }
+        return true;
+    }
+
+    public int getScore(Joueur j)
+    {
+        if (!alJoueurs.contains(j))
+            return 0;
+
+        return plateau.getScore(j.getJeton());
+    }
+
+    @Override
+    public String toString()
+    {
+        StringBuilder sb = new StringBuilder();
+
+        sb.append(this.plateau.toString());
+
+        for (Joueur j : alJoueurs)
+        {
+            sb.append(String.format("\n%-20s (%c): %2d",
+                    j.getNom(), j.getJeton(), getScore(j)));
+        }
+
+        return sb.toString();
     }
 }

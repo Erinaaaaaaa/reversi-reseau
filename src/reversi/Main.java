@@ -6,46 +6,42 @@ public class Main
 {
     public static void main(String[] args)
     {
-        Plateau plateau = Plateau.creer(12, 8, null);
-        Scanner s = new Scanner(System.in);
+        Scanner sc = new Scanner(System.in);
 
-        char[] joueurs = {'N', 'B'};
+        Joueur[] joueurs = {
+                new Joueur("Jeremiidesu"),
+                new Joueur("Kyugamii"),
+                new Joueur("S4ltyLH"),
+                new Joueur("breadman")
+        };
 
-        int joueur = 0;
+        Partie p = new Partie(joueurs);
 
-        while (true)
+        while (!p.bloquee())
         {
-            afficher(plateau);
-            System.out.println("TOUR DU JOUEUR '" + joueurs[joueur] + "'");
-            System.out.println("Est-ce que ce joueur peut jouer?: " + plateau.peutJouer(joueurs[joueur]));
+            System.out.println(p);
 
-            if (!plateau.peutJouer(joueurs[joueur]))
+            boolean peutJouer = p.peutJouer();
+
+            Joueur j = p.getJoueurCourant();
+
+            System.out.println("Joueur actuel: " + j.getNom() + " (" + j.getJeton() + ")");
+            System.out.println("Le joueur actuel peut jouer: " + peutJouer);
+
+            if (!peutJouer)
             {
-                joueur++;
-                if (joueur >= joueurs.length) joueur = 0;
-                break;
+                p.joueurSuivant();
+                continue;
             }
 
-            System.out.print("x (début à 0) = "); int x = s.nextInt();
-            System.out.print("y (début à 0) = "); int y = s.nextInt();
+            System.out.print("Position X (base 0): "); int x = sc.nextInt();
+            System.out.print("Position Y (base 0): "); int y = sc.nextInt();
 
-            boolean result = plateau.jouer(joueurs[joueur], x, y);
+            boolean result = p.jouer(x, y);
 
-            System.out.println("Succès du tour: " + result);
-
-            if (result)
-            {
-                joueur++;
-                if (joueur >= joueurs.length) joueur = 0;
-            }
+            System.out.println("Résultat du coup: " + result);
         }
-        System.out.println("Joueur " + joueurs[joueur] + " gagne!");
-    }
 
-    private static void afficher(Plateau p)
-    {
-        System.out.println("---------------");
         System.out.println(p);
-        System.out.println("---------------");
     }
 }

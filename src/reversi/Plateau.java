@@ -15,16 +15,47 @@ public class Plateau
         this.hauteur = hauteur;
         this.tabJetons = new char[hauteur][largeur];
 
-        this.tabJetons[hauteur/2-1][largeur/2-1] = 'N';
-        this.tabJetons[hauteur/2  ][largeur/2  ] = 'N';
+        // TODO: Situations de départ
 
-        this.tabJetons[hauteur/2  ][largeur/2-1] = 'B';
-        this.tabJetons[hauteur/2-1][largeur/2  ] = 'B';
+        switch (joueurs.size())
+        {
+            case 2:
+            {
+                this.tabJetons[hauteur/2-1][largeur/2-1] = joueurs.get(0).getJeton();
+                this.tabJetons[hauteur/2-1][largeur/2  ] = joueurs.get(1).getJeton();
+                this.tabJetons[hauteur/2  ][largeur/2-1] = joueurs.get(1).getJeton();
+                this.tabJetons[hauteur/2  ][largeur/2  ] = joueurs.get(0).getJeton();
+                break;
+            }
+            case 3:
+            {
+                this.tabJetons[hauteur/2-1][largeur/2-1] = joueurs.get(0).getJeton();
+                this.tabJetons[hauteur/2-1][largeur/2  ] = joueurs.get(1).getJeton();
+                this.tabJetons[hauteur/2  ][largeur/2-1] = joueurs.get(2).getJeton();
+                // this.tabJetons[hauteur/2-1][largeur/2  ] = joueurs.get(1).getJeton();
+                break;
+            }
+            case 4:
+            {
+                this.tabJetons[hauteur/2-1][largeur/2-1] = joueurs.get(0).getJeton();
+                this.tabJetons[hauteur/2-1][largeur/2  ] = joueurs.get(1).getJeton();
+                this.tabJetons[hauteur/2  ][largeur/2-1] = joueurs.get(2).getJeton();
+                this.tabJetons[hauteur/2  ][largeur/2  ] = joueurs.get(3).getJeton();
+                break;
+            }
+        }
     }
 
     public static Plateau creer(ArrayList<Joueur> joueurs)
     {
-        return creer(8, joueurs);
+        switch (joueurs.size())
+        {
+            case 2: return creer(8, joueurs);
+            case 3: return creer(10, joueurs);
+            case 4: return creer(12, joueurs);
+            default: return null;
+        }
+
     }
 
     public static Plateau creer(int cote, ArrayList<Joueur> joueurs)
@@ -108,10 +139,6 @@ public class Plateau
 
     public boolean jouer(char jeton, int x, int y)
     {
-        // Placement invalide
-        if (jeton != 'B' && jeton != 'N')
-            return false;
-
         // Placement hors-limite
         if ((x < 0 || x >= largeur) || (y < 0 || y >= hauteur))
             return false;
@@ -197,5 +224,17 @@ public class Plateau
         }
 
         return sb.deleteCharAt(sb.length()-1).toString();
+    }
+
+    public int getScore(char jeton)
+    {
+        int i = 0;
+
+        for (char[] row : tabJetons)
+            for (char slot : row)
+                if (slot == jeton)
+                    i++;
+
+        return i;
     }
 }
