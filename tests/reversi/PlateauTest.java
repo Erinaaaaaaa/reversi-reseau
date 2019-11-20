@@ -1,21 +1,19 @@
 package reversi;
 
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
+import reversi.metier.Joueur;
+import reversi.metier.Plateau;
 
-import java.io.PrintWriter;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class PlateauTest
 {
-    private Plateau plateau;
+    private static Plateau plateau;
 
-    @BeforeEach
-    void setUp()
+    @BeforeAll
+    static void setUp()
     {
         ArrayList<Joueur> al = new ArrayList<>();
         al.add(new Joueur("Joueur 1"));
@@ -27,8 +25,8 @@ class PlateauTest
         plateau = Plateau.creer(al);
     }
 
-    @AfterEach
-    void tearDown()
+    @AfterAll
+    static void tearDown()
     {
         plateau = null;
     }

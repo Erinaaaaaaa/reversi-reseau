@@ -1,4 +1,4 @@
-package reversi;
+package reversi.metier;
 
 import java.util.ArrayList;
 import java.util.Arrays;

@@ -1,6 +1,6 @@
 package reversi.gui;
 
-import reversi.*;
+import reversi.metier.Plateau;
 
 public class Controleur{
 

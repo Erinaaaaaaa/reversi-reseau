@@ -1,5 +1,8 @@
 package reversi;
 
+import reversi.metier.Joueur;
+import reversi.metier.Partie;
+
 import java.util.Scanner;
 
 public class Main

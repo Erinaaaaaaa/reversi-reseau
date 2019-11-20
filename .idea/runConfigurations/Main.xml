@@ -4,7 +4,7 @@
     <module name="reversi-reseau" />
     <extension name="coverage">
       <pattern>
-        <option name="PATTERN" value="reversi.*" />
+        <option name="PATTERN" value="reversi.metier.*" />
         <option name="ENABLED" value="true" />
       </pattern>
     </extension>
