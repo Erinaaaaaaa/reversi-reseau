@@ -26,7 +26,7 @@ public class Partie
 
         this.initialiserJoueurs();
 
-        this.plateau = Plateau.creer(4, alJoueurs);
+        this.plateau = Plateau.creer(alJoueurs);
     }
 
     private void initialiserJoueurs()

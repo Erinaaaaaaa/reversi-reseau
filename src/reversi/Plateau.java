@@ -27,20 +27,34 @@ public class Plateau
                 this.tabJetons[hauteur/2  ][largeur/2  ] = joueurs.get(0).getJeton();
                 break;
             }
-            case 3:
-            {
-                this.tabJetons[hauteur/2-1][largeur/2-1] = joueurs.get(0).getJeton();
-                this.tabJetons[hauteur/2-1][largeur/2  ] = joueurs.get(1).getJeton();
-                this.tabJetons[hauteur/2  ][largeur/2-1] = joueurs.get(2).getJeton();
-                // this.tabJetons[hauteur/2-1][largeur/2  ] = joueurs.get(1).getJeton();
-                break;
-            }
             case 4:
             {
-                this.tabJetons[hauteur/2-1][largeur/2-1] = joueurs.get(0).getJeton();
-                this.tabJetons[hauteur/2-1][largeur/2  ] = joueurs.get(1).getJeton();
-                this.tabJetons[hauteur/2  ][largeur/2-1] = joueurs.get(2).getJeton();
-                this.tabJetons[hauteur/2  ][largeur/2  ] = joueurs.get(3).getJeton();
+                int a = largeur/2;
+                int b = hauteur/2;
+
+                /*
+                      a
+                    C D
+                  C A B D
+                b B D C A
+                    B A
+                 */
+                this.tabJetons[b-2][a-1] = joueurs.get(2).getJeton();
+                this.tabJetons[b-2][a  ] = joueurs.get(3).getJeton();
+
+                this.tabJetons[b-1][a-2] = joueurs.get(3).getJeton();
+                this.tabJetons[b-1][a-1] = joueurs.get(0).getJeton();
+                this.tabJetons[b-1][a  ] = joueurs.get(1).getJeton();
+                this.tabJetons[b-1][a+1] = joueurs.get(2).getJeton();
+
+                this.tabJetons[b  ][a-2] = joueurs.get(1).getJeton();
+                this.tabJetons[b  ][a-1] = joueurs.get(3).getJeton();
+                this.tabJetons[b  ][a  ] = joueurs.get(2).getJeton();
+                this.tabJetons[b  ][a+1] = joueurs.get(0).getJeton();
+
+                this.tabJetons[b+1][a-1] = joueurs.get(1).getJeton();
+                this.tabJetons[b+1][a  ] = joueurs.get(0).getJeton();
+
                 break;
             }
         }
@@ -69,6 +83,9 @@ public class Plateau
             return null;
 
         if (hauteur %2 != 0 || hauteur < 4)
+            return null;
+
+        if (joueurs.size() != 2 && joueurs.size() != 4)
             return null;
 
         return new Plateau(largeur, hauteur, joueurs);
