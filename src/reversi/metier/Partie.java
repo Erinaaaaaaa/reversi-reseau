@@ -2,6 +2,7 @@ package reversi.metier;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public class Partie
 {
@@ -12,19 +13,19 @@ public class Partie
 
     public Partie(Joueur[] joueurs)
     {
-        this((ArrayList<Joueur>) Arrays.asList(joueurs));
+        this(Arrays.asList(joueurs));
 
     }
 
-    public Partie(ArrayList<Joueur> joueurs)
+    public Partie(List<Joueur> joueurs)
     {
-        this.alJoueurs = joueurs;
+        this.alJoueurs = new ArrayList<>(joueurs);
 
         this.joueurCourant = 0;
 
         this.initialiserJoueurs();
 
-        this.plateau = Plateau.creer(joueurs);
+        this.plateau = Plateau.creer(alJoueurs);
     }
 
     private void initialiserJoueurs()

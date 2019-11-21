@@ -8,7 +8,8 @@ import java.awt.event.ActionListener;
 public class PanelInfo extends JPanel implements ActionListener {
 
     Controleur ctrl;
-    JPanel infoJoueur;
+    JPanel infoJoueurs;
+    PanelInfoJoueur[] pInfoJoueurs;
 
     public PanelInfo(Controleur c){
 
@@ -16,17 +17,18 @@ public class PanelInfo extends JPanel implements ActionListener {
 
         this.setLayout(new BorderLayout());
 
-        this.infoJoueur = new JPanel();
-        this.infoJoueur.setLayout(new GridLayout(4,1));
-
-        this.infoJoueur.add(new JLabel(this.ctrl.getNomJoueur(1)));
-        this.infoJoueur.add(new JLabel("BONJOUR JE SUIS LE VOMIT"));
-        this.infoJoueur.add(new JLabel(this.ctrl.getNomJoueur(2)));
-        this.infoJoueur.add(new JLabel("BONJOUR JE SUIS UNE PATATE"));
-
-        this.add(this.infoJoueur, "North");
+        this.pInfoJoueurs = new PanelInfoJoueur[this.ctrl.getNombreJoueurs()];
+        this.infoJoueurs = new JPanel();
+        this.infoJoueurs.setLayout(new GridLayout(4,1,0,10));
 
 
+        for(int i = 0; i < this.pInfoJoueurs.length; i++)
+        {
+            this.pInfoJoueurs[i] = new PanelInfoJoueur(this.ctrl, i);
+            this.infoJoueurs.add(this.pInfoJoueurs[i]);
+        }
+
+        this.add(infoJoueurs, BorderLayout.NORTH);
     }
 
     public void actionPerformed(ActionEvent e) {

@@ -11,9 +11,11 @@ public class FrameJeu extends JFrame {
     public FrameJeu(Controleur c){
 
 
+
         this.setTitle("Reversi");
         this.setLocation(50,50);
-        this.setSize(800,600);
+        this.setSize(900,600);
+        this.setResizable(false);
 
         this.ctrl = c;
 
@@ -25,8 +27,10 @@ public class FrameJeu extends JFrame {
         this.add(this.pPlateau,"West");
 
         this.pInfo = new PanelInfo(this.ctrl);
-        this.add(this.pInfo,"East");
+        this.add(this.pInfo);
 
+
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setVisible(true);
 
     }

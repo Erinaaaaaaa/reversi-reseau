@@ -1,34 +1,45 @@
 package reversi.gui;
 
+import reversi.metier.Joueur;
+import reversi.metier.Partie;
 import reversi.metier.Plateau;
 
 public class Controleur{
 
-    private Plateau plateau;
+    private Partie   partie;
     private FrameJeu IHM;
+    private Joueur[] joueurs;
 
     private int joueur;
 
     public Controleur()
     {
-        int joueur = 1;
-        this.plateau = Plateau.creer(null);
+
+        this.joueurs = new Joueur[4];
+
+        //Initialisation des joueurs
+        for(int i = 0; i<this.joueurs.length; i++)
+        {
+            this.joueurs[i] = new Joueur("Joueur" + i);
+        }
+
+        this.partie = new Partie(this.joueurs);
+
         this.IHM = new FrameJeu(this);
     }
 
-    public String getNomJoueur(int i)
-    {
-        return null; // plateau.getNomJoueur(i);
-    }
+    public String getNomJoueur(int i){return this.partie.getJoueurs()[i].getNom() ;}
 
-    public int getLargeurPlateau(){return this.plateau.getLargeur();}
-    public int getHauteurPlateau(){return this.plateau.getHauteur();}
+    public int getNombreJoueurs(){return this.partie.getJoueurs().length;}
+
+    public int getLargeurPlateau(){return this.partie.getPlateau()[0].length;}
+    public int getHauteurPlateau(){return this.partie.getPlateau().length;}
     public char getCasePlateau(int x, int y)
     {
-        return this.plateau.getCase(x,y);
+        return this.partie.getPlateau()[y][x];
     }
     public int getScoreJoueur(int i){
-        return -1; //this.plateau.getScoreJoueur(i);
+       return this.partie.getScore(this.partie.getJoueurs()[i]);
     }
 
     /*public boolean jouer(int x, int y)
