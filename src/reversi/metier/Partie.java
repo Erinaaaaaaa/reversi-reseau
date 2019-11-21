@@ -12,21 +12,21 @@ public class Partie
 
     private boolean pret = false;
 
-    public Partie(ArrayList<Joueur> joueurs)
-    {
-        this((Joueur[])(joueurs.toArray()));
-    }
-
     public Partie(Joueur[] joueurs)
     {
-        this.alJoueurs = new ArrayList<>();
-        this.alJoueurs.addAll(Arrays.asList(joueurs));
+        this((ArrayList<Joueur>) Arrays.asList(joueurs));
+
+    }
+
+    public Partie(ArrayList<Joueur> joueurs)
+    {
+        this.alJoueurs = joueurs;
 
         this.joueurCourant = 0;
 
         this.initialiserJoueurs();
 
-        this.plateau = Plateau.creer(alJoueurs);
+        this.plateau = Plateau.creer(joueurs);
     }
 
     private void initialiserJoueurs()
