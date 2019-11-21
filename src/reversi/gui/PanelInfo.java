@@ -19,7 +19,7 @@ public class PanelInfo extends JPanel implements ActionListener {
 
         this.pInfoJoueurs = new PanelInfoJoueur[this.ctrl.getNombreJoueurs()];
         this.infoJoueurs = new JPanel();
-        this.infoJoueurs.setLayout(new GridLayout(4,1,0,10));
+        this.infoJoueurs.setLayout(new GridLayout(4,1,0,15));
 
 
         for(int i = 0; i < this.pInfoJoueurs.length; i++)
@@ -37,4 +37,15 @@ public class PanelInfo extends JPanel implements ActionListener {
     }
 
 
+    public void maj() {
+        for (PanelInfoJoueur pij : pInfoJoueurs)
+        {
+            pij.setGras(
+                    this.ctrl.getJoueurCourant().equals(
+                            this.ctrl.getJoueur(pij.getNumJoueur())
+                    )
+            );
+            pij.setScore(this.ctrl.getScoreJoueur(pij.getNumJoueur()));
+        }
+    }
 }

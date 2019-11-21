@@ -35,6 +35,8 @@ public class FrameJeu extends JFrame {
 
     }
 
-
-
+    public void majIHM() {
+        this.pInfo.maj();
+        this.pPlateau.maj();
+    }
 }

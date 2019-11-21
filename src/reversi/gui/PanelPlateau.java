@@ -17,11 +17,11 @@ public class PanelPlateau extends JPanel implements ActionListener {
         this.setLayout(new GridLayout(this.ctrl.getLargeurPlateau(), this.ctrl.getHauteurPlateau()));
         this.tabBouton = new JButton[this.ctrl.getLargeurPlateau()][this.ctrl.getHauteurPlateau()];
 
-        for(int cpt1=0; cpt1<tabBouton.length; cpt1++)
+        for(int x=0; x<tabBouton.length; x++)
         {
-            for(int cpt2=0;cpt2<tabBouton[cpt1].length;cpt2++)
+            for(int y=0;y<tabBouton[x].length;y++)
             {
-                char f = ctrl.getCasePlateau(cpt2, cpt1);
+                char f = ctrl.getCasePlateau(x, y);
                 JButton btn;
 
                 if (f != '\0')
@@ -29,10 +29,10 @@ public class PanelPlateau extends JPanel implements ActionListener {
                 else
                     btn = new JButton(" ");
 
-                tabBouton[cpt1][cpt2] = btn;
-                tabBouton[cpt1][cpt2].setPreferredSize(new Dimension(600/this.ctrl.getHauteurPlateau(),600/this.ctrl.getHauteurPlateau()));
-                this.add(this.tabBouton[cpt1][cpt2]);
-                this.tabBouton[cpt1][cpt2].addActionListener(this);
+                tabBouton[y][x] = btn;
+                tabBouton[y][x].setPreferredSize(new Dimension(600/this.ctrl.getHauteurPlateau(),600/this.ctrl.getHauteurPlateau()));
+                this.add(this.tabBouton[y][x]);
+                this.tabBouton[y][x].addActionListener(this);
             }
         }
     }
@@ -40,7 +40,32 @@ public class PanelPlateau extends JPanel implements ActionListener {
     public void actionPerformed(ActionEvent e) {
 
         System.out.println(((JButton) e.getSource()).getText());
+
+        if(ctrl.peutJouer())
+        {
+            for(int y = 0; y<tabBouton.length; y++ ) {
+                for (int x = 0; x < tabBouton[y].length; x++) {
+                    if (this.tabBouton[y][x].equals(e.getSource())) {
+                        this.ctrl.jouer(x, y);
+                    }
+                }
+            }
+
+        }
+
+
+        this.ctrl.majIHM();
+
     }
 
+    public void maj()
+    {
+        for(int y = 0; y<tabBouton.length; y++ ) {
+            for (int x = 0; x < tabBouton[y].length; x++) {
+                tabBouton[y][x].setText("" + this.ctrl.getCasePlateau(x,y));
 
+                //  TODO: Colorier toute les cases des joueurs
+            }
+        }
+    }
 }
