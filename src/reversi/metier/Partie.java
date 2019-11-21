@@ -10,8 +10,6 @@ public class Partie
 
     private int joueurCourant;
 
-    private boolean pret = false;
-
     public Partie(Joueur[] joueurs)
     {
         this((ArrayList<Joueur>) Arrays.asList(joueurs));
@@ -48,6 +46,14 @@ public class Partie
     }
 
     public Joueur getJoueurCourant() { return this.alJoueurs.get(this.joueurCourant); }
+
+    public Joueur[] getJoueurs()
+    {
+        Joueur[] js = new Joueur[this.alJoueurs.size()];
+        this.alJoueurs.toArray(js);
+
+        return js;
+    }
 
     public int getNbJoueurs() { return this.alJoueurs.size(); }
 
