@@ -89,6 +89,17 @@ public class Partie
         return plateau.getScore(j.getJeton());
     }
 
+    public char[][] getPlateau()
+    {
+        char[][] cases = new char[plateau.getHauteur()][plateau.getLargeur()];
+
+        for (int y = 0; y < plateau.getHauteur(); y++)
+            for (int x = 0; x < plateau.getLargeur(); x++)
+                cases[y][x] = plateau.getCase(x,y);
+
+        return cases;
+    }
+
     @Override
     public String toString()
     {
