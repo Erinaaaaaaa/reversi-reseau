@@ -13,6 +13,9 @@ public class Partie
 
     private int joueurCourant;
 
+    private int nbJoueurEnVie;
+    private Joueur[] classement;
+
     public Partie(Joueur[] joueurs)
     {
         this(Arrays.asList(joueurs));
@@ -22,6 +25,7 @@ public class Partie
     {
         this.alJoueurs = new ArrayList<>(joueurs);
         this.hmJetonJoueur = new HashMap<>();
+        this.classement = new Joueur[alJoueurs.size()];
 
         this.joueurCourant = 0;
 
@@ -39,6 +43,8 @@ public class Partie
             j.setCouleur(Couleur.values()[i]);
             this.hmJetonJoueur.put((char)('A' + i), j);
         }
+
+        this.nbJoueurEnVie = alJoueurs.size();
     }
 
     public void joueurSuivant()
@@ -82,6 +88,14 @@ public class Partie
                 joueurSuivant();
         }
 
+        for (Joueur j : alJoueurs)
+        {
+            if (this.getScore(j) == 0)
+            {
+                this.classement[--nbJoueurEnVie] = j;
+            }
+        }
+
         return result;
     }
 
@@ -103,6 +117,29 @@ public class Partie
                 return false;
         }
         return true;
+    }
+
+    public Joueur[] getClassement()
+    {
+        Joueur[] vraiClassement = Arrays.copyOf(classement, classement.length);
+
+        HashMap<Joueur, Integer> scores = new HashMap<>();
+
+        for (Joueur j : alJoueurs)
+        {
+            scores.put(j, this.getScore(j));
+        }
+
+        scores = Outils.sortHashMapByValues(scores);
+
+        ArrayList<Joueur> joueurTmp = new ArrayList<>(scores.keySet());
+
+        for (int i = 0; i < nbJoueurEnVie; i++)
+        {
+            vraiClassement[i] = joueurTmp.get(i);
+        }
+
+        return vraiClassement;
     }
 
     public int getScore(Joueur j)

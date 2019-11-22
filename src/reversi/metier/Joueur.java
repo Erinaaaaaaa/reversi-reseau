@@ -2,7 +2,7 @@ package reversi.metier;
 
 import java.awt.*;
 
-public class Joueur
+public class Joueur implements Comparable
 {
     private String  nom;
 
@@ -23,4 +23,10 @@ public class Joueur
 
     public void setJeton(char jeton) { this.jeton = jeton;}
     public void setCouleur(Couleur couleur) { this.couleur = couleur; }
+
+    @Override
+    public int compareTo(Object o)
+    {
+        return 0;
+    }
 }
