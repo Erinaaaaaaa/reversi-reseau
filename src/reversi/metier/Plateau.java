@@ -106,7 +106,7 @@ public class Plateau
     }
 
     // Méthode d'application des règles
-    private boolean peutPlacer(char jeton, int x, int y)
+    boolean peutPlacer(char jeton, int x, int y)
     {
         if (this.tabJetons[y][x] != '\0')
             return false;

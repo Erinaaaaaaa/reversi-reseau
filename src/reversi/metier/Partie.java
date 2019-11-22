@@ -90,6 +90,11 @@ public class Partie
         return this.plateau.peutJouer(this.getJoueurCourant().getJeton());
     }
 
+    public boolean peutJouer(int x, int y)
+    {
+        return this.plateau.peutPlacer(this.getJoueurCourant().getJeton(), x, y);
+    }
+
     public boolean bloquee()
     {
         for (Joueur j : alJoueurs)
