@@ -15,8 +15,6 @@ public class Plateau
         this.hauteur = hauteur;
         this.tabJetons = new char[hauteur][largeur];
 
-        // TODO: Situations de départ
-
         switch (joueurs.size())
         {
             case 2:

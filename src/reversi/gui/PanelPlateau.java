@@ -1,5 +1,6 @@
 package reversi.gui;
 
+import reversi.gui.etc.RoundedButton;
 import reversi.metier.Joueur;
 
 import java.awt.*;
@@ -24,7 +25,7 @@ public class PanelPlateau extends JPanel implements ActionListener {
             for(int y=0;y<tabBouton[x].length;y++)
             {
 
-                JButton btn = new JButton();;
+                JButton btn = new RoundedButton(16);
 
                 tabBouton[y][x] = btn;
                 tabBouton[y][x].setPreferredSize(new Dimension(600/this.ctrl.getHauteurPlateau(),600/this.ctrl.getHauteurPlateau()));
@@ -63,6 +64,14 @@ public class PanelPlateau extends JPanel implements ActionListener {
         for(int y = 0; y<tabBouton.length; y++ ) {
             for (int x = 0; x < tabBouton[y].length; x++) {
                 tabBouton[y][x].setText("" + this.ctrl.getCasePlateau(x,y));
+                if(this.ctrl.peutJouer(x,y))
+                {
+                    tabBouton[y][x].setBackground(new Color(161,247,255));
+                }
+                else
+                {
+                    tabBouton[y][x].setBackground(new Color(230,253,255));
+                }
 
                 Joueur jTmp = this.ctrl.getJoueur(this.ctrl.getCasePlateau(x,y));
 
@@ -71,6 +80,14 @@ public class PanelPlateau extends JPanel implements ActionListener {
                     tabBouton[y][x].setBackground(jTmp.getColor());
                 }
             }
+        }
+
+        if(this.ctrl.bloquee())
+        {
+
+            //ImageIcon img = new ImageIcon("images/information.png");
+            JOptionPane.showMessageDialog(null, "Le Gagnant est : ", "Resultat", JOptionPane.INFORMATION_MESSAGE);
+
         }
     }
 }
