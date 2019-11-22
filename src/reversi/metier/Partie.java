@@ -2,24 +2,26 @@ package reversi.metier;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 
 public class Partie
 {
     private Plateau plateau;
     private ArrayList<Joueur> alJoueurs;
+    private HashMap<Character, Joueur> hmJetonJoueur;
 
     private int joueurCourant;
 
     public Partie(Joueur[] joueurs)
     {
         this(Arrays.asList(joueurs));
-
     }
 
     public Partie(List<Joueur> joueurs)
     {
         this.alJoueurs = new ArrayList<>(joueurs);
+        this.hmJetonJoueur = new HashMap<>();
 
         this.joueurCourant = 0;
 
@@ -35,6 +37,7 @@ public class Partie
             Joueur j = alJoueurs.get(i);
             j.setJeton((char)('A' + i));
             j.setCouleur(Couleur.values()[i]);
+            this.hmJetonJoueur.put((char)('A' + i), j);
         }
     }
 
@@ -47,6 +50,14 @@ public class Partie
     }
 
     public Joueur getJoueurCourant() { return this.alJoueurs.get(this.joueurCourant); }
+
+    public Joueur getJoueur(char jeton)
+    {
+        if (hmJetonJoueur.containsKey(jeton))
+            return hmJetonJoueur.get(jeton);
+
+        return null;
+    }
 
     public Joueur[] getJoueurs()
     {
