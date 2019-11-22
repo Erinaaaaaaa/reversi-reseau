@@ -73,7 +73,14 @@ public class Partie
     {
         boolean result = plateau.jouer(this.getJoueurCourant().getJeton(), x, y);
 
-        if (result) joueurSuivant();
+        if (result)
+        {
+            joueurSuivant();
+
+            // Tant que la partie n'est pas bloquée, passer tous les joueurs qui ne peuvent pas jouer
+            while (!peutJouer() && !bloquee())
+                joueurSuivant();
+        }
 
         return result;
     }
