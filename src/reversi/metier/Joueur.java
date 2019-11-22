@@ -1,5 +1,7 @@
 package reversi.metier;
 
+import java.awt.*;
+
 public class Joueur
 {
     private String  nom;
@@ -17,8 +19,8 @@ public class Joueur
 
     public char getJeton() { return this.jeton; }
     public Couleur getCouleur() { return this.couleur; }
+    public Color   getColor() { return this.couleur.getCouleur(); }
 
     public void setJeton(char jeton) { this.jeton = jeton;}
     public void setCouleur(Couleur couleur) { this.couleur = couleur; }
-
 }
