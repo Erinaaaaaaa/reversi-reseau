@@ -1,24 +1,26 @@
 package reversi.metier;
 
+import java.awt.Color;
+
 public enum Couleur
 {
-    NOIR  ("Noir"),
-    BLANC ("Blanc"),
-    ROUGE ("Rouge"),
-    ORANGE("Orange"),
-    JAUNE ("Jaune"),
-    VERT  ("Vert"),
-    BLEU  ("Bleu"),
-    VIOLET("Violet");
+    NOIR  (Color.BLACK  ),
+    BLANC (Color.WHITE  ),
+    ROUGE (Color.RED    ),
+    ORANGE(Color.ORANGE ),
+    JAUNE (Color.YELLOW ),
+    VERT  (Color.GREEN  ),
+    BLEU  (Color.BLUE   ),
+    ROSE  (Color.MAGENTA);
 
-    private String couleur;
+    private Color couleur;
 
-    Couleur(String couleur)
+    Couleur(Color couleur)
     {
         this.couleur = couleur;
     }
 
-    public String getCouleur()
+    public Color getCouleur()
     {
         return couleur;
     }
