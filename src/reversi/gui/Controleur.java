@@ -68,6 +68,8 @@ public class Controleur{
     public Joueur getJoueur(int i){return this.partie.getJoueurs()[i];}
     public Joueur getJoueur(char c){return this.partie.getJoueur(c);}
 
+    public Joueur[] getClassement(){return this.partie.getClassement();}
+
     public void   joueurSuivant() { this.partie.joueurSuivant();
         System.out.println(this.getJoueurCourant().getNom());}
 

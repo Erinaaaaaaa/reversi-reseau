@@ -86,7 +86,7 @@ public class PanelPlateau extends JPanel implements ActionListener {
         {
 
             //ImageIcon img = new ImageIcon("images/information.png");
-            JOptionPane.showMessageDialog(null, "Le Gagnant est : ", "Resultat", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Le Gagnant est : " + this.ctrl.getClassement()[0].getNom(), "Resultat", JOptionPane.INFORMATION_MESSAGE);
 
         }
     }
