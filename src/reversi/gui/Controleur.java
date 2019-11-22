@@ -64,6 +64,9 @@ public class Controleur{
     public int    getScoreJoueur(int i){
        return this.partie.getScore(this.partie.getJoueurs()[i]);
     }
+    public int    getScoreJoueur(Joueur j){
+        return this.partie.getScore(j);
+    }
     public Joueur getJoueurCourant(){return this.partie.getJoueurCourant();}
     public Joueur getJoueur(int i){return this.partie.getJoueurs()[i];}
     public Joueur getJoueur(char c){return this.partie.getJoueur(c);}

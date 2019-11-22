@@ -84,9 +84,20 @@ public class PanelPlateau extends JPanel implements ActionListener {
 
         if(this.ctrl.bloquee())
         {
+            Joueur[] classement = this.ctrl.getClassement();
+
+            StringBuilder sb = new StringBuilder();
+            sb.append("Classement final");
+
+            for (int i = 0; i < classement.length; i++)
+            {
+                Joueur j = classement[i];
+                sb.append("\n#").append(i+1).append(": ").append(j.getNom())
+                .append(" avec ").append(ctrl.getScoreJoueur(j)).append(" points");
+            }
 
             //ImageIcon img = new ImageIcon("images/information.png");
-            JOptionPane.showMessageDialog(null, "Le Gagnant est : " + this.ctrl.getClassement()[0].getNom(), "Resultat", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(null, sb.toString(), "Resultat", JOptionPane.INFORMATION_MESSAGE);
 
         }
     }

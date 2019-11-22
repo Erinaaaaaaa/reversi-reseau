@@ -88,9 +88,11 @@ public class Partie
                 joueurSuivant();
         }
 
+        List<Joueur> tmp = Arrays.asList(classement);
+
         for (Joueur j : alJoueurs)
         {
-            if (this.getScore(j) == 0)
+            if (this.getScore(j) == 0 && !tmp.contains(j))
             {
                 this.classement[--nbJoueurEnVie] = j;
             }
