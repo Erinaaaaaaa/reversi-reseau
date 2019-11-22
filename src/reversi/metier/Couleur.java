@@ -4,14 +4,10 @@ import java.awt.Color;
 
 public enum Couleur
 {
-    NOIR  (Color.BLACK  ),
-    BLANC (Color.WHITE  ),
-    ROUGE (Color.RED    ),
-    ORANGE(Color.ORANGE ),
-    JAUNE (Color.YELLOW ),
-    VERT  (Color.GREEN  ),
-    BLEU  (Color.BLUE   ),
-    ROSE  (Color.MAGENTA);
+    NOIR  (Color.DARK_GRAY),
+    BLANC (Color.WHITE    ),
+    ROUGE (Color.RED      ),
+    ORANGE(Color.BLUE     );
 
     private Color couleur;
 
