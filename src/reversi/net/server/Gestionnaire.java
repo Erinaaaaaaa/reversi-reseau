@@ -8,39 +8,33 @@ import java.net.Socket;
 
 public class Gestionnaire implements Runnable
 {
-    private Socket socket;
+    private Socket s;
 
     private BufferedReader in;
     private PrintWriter out;
 
     public Gestionnaire(Socket s) throws IOException
     {
-        this.socket = s;
+        this.s = s;
 
-        this.in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-        this.out = new PrintWriter(socket.getOutputStream());
+        in = new BufferedReader(new InputStreamReader(s.getInputStream()));
+        out = new PrintWriter(s.getOutputStream(), true);
     }
-
 
     public void run()
     {
-        System.out.println("[GEST] Exécution du gestionnaire sur connexion entrante");
-
-        // out.println("Bonjour! Quel est votre nom?");
-
+        System.out.println("[GEST] Exécution du gestionnaire");
+        out.println("println");
+        out.print("print");
+        out.flush();
         try
         {
-            String s = in.readLine();
-
-            System.out.println("[GEST] Nouvelle connexion: " + s);
-
-            out.println("Bienvenue " + s);
-
-            socket.close();
+            s.close();
         }
         catch (IOException e)
         {
             e.printStackTrace();
         }
+        System.out.println("[GEST] Fin exécution du gestionnaire");
     }
 }
