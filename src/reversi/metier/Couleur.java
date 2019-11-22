@@ -5,7 +5,7 @@ import java.awt.Color;
 public enum Couleur
 {
     NOIR  (Color.DARK_GRAY),
-    BLANC (Color.WHITE    ),
+    VERT  (Color.GREEN    ),
     ROUGE (Color.RED      ),
     ORANGE(Color.BLUE     );
 
