@@ -1,5 +1,7 @@
 package reversi.gui;
 
+import reversi.metier.Joueur;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -21,20 +23,18 @@ public class PanelPlateau extends JPanel implements ActionListener {
         {
             for(int y=0;y<tabBouton[x].length;y++)
             {
-                char f = ctrl.getCasePlateau(x, y);
-                JButton btn;
 
-                if (f != '\0')
-                    btn = new JButton("" + f);
-                else
-                    btn = new JButton(" ");
+                JButton btn = new JButton();;
 
                 tabBouton[y][x] = btn;
                 tabBouton[y][x].setPreferredSize(new Dimension(600/this.ctrl.getHauteurPlateau(),600/this.ctrl.getHauteurPlateau()));
                 this.add(this.tabBouton[y][x]);
                 this.tabBouton[y][x].addActionListener(this);
+
             }
         }
+
+        this.maj();
     }
 
     public void actionPerformed(ActionEvent e) {
@@ -64,7 +64,12 @@ public class PanelPlateau extends JPanel implements ActionListener {
             for (int x = 0; x < tabBouton[y].length; x++) {
                 tabBouton[y][x].setText("" + this.ctrl.getCasePlateau(x,y));
 
-                //  TODO: Colorier toute les cases des joueurs
+                Joueur jTmp = this.ctrl.getJoueur(this.ctrl.getCasePlateau(x,y));
+
+                if(jTmp != null)
+                {
+                    tabBouton[y][x].setBackground(jTmp.getColor());
+                }
             }
         }
     }

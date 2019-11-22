@@ -15,7 +15,7 @@ public class Controleur{
     public Controleur()
     {
 
-        this.joueurs = new Joueur[4];
+        this.joueurs = new Joueur[2];
 
         //Initialisation des joueurs
         for(int i = 0; i<this.joueurs.length; i++)
@@ -45,6 +45,7 @@ public class Controleur{
     }
     public Joueur getJoueurCourant(){return this.partie.getJoueurCourant();}
     public Joueur getJoueur(int i){return this.partie.getJoueurs()[i];}
+    public Joueur getJoueur(char c){return this.partie.getJoueur(c);}
 
     public void   joueurSuivant() { this.partie.joueurSuivant();
         System.out.println(this.getJoueurCourant().getNom());}

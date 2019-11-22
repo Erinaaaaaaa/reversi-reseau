@@ -1,6 +1,7 @@
 package reversi.gui;
 
 import javax.swing.*;
+import java.awt.*;
 
 public class FrameJeu extends JFrame {
 
@@ -16,6 +17,8 @@ public class FrameJeu extends JFrame {
         this.setLocation(50,50);
         this.setSize(900,600);
         this.setResizable(false);
+
+        this.setLayout(new BorderLayout(5, 5));
 
         this.ctrl = c;
 

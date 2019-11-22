@@ -14,8 +14,8 @@ public class PanelInfoJoueur extends JPanel implements ActionListener {
     private JLabel lblJoueur;
     private JLabel lblScore;
 
-    private final Font NORMAL = new Font("Dialog", Font.PLAIN, 12);
-    private final Font GRAS = new Font("Dialog", Font.BOLD, 12);
+    private final Font NORMAL = new Font("Dialog", Font.PLAIN, 20);
+    private final Font GRAS = new Font("Dialog", Font.BOLD, 25);
 
     private int numJoueur;
 
@@ -31,6 +31,7 @@ public class PanelInfoJoueur extends JPanel implements ActionListener {
         {
             lblJoueur = new JLabel(this.ctrl.getNomJoueur(numJoueur));
             lblJoueur.setFont(this.GRAS);
+            lblJoueur.setForeground(this.ctrl.getJoueur(numJoueur).getColor());
             // lblText.setToolTipText(this.ctrl.getNomJoueur(numJoueur));
             this.add(lblJoueur);
 
@@ -39,6 +40,7 @@ public class PanelInfoJoueur extends JPanel implements ActionListener {
         {
             lblJoueur = new JLabel(this.ctrl.getNomJoueur(numJoueur));
             lblJoueur.setFont(NORMAL);
+            lblJoueur.setForeground(this.ctrl.getJoueur(numJoueur).getColor());
             this.add(lblJoueur);
         }
 
