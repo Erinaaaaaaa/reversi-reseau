@@ -21,7 +21,39 @@ public class Client
 
         out.println(sc.nextLine());
 
+        new Thread(new Lecteur(in)).start();
+
         while (true)
-            System.out.println(in.readLine());
+            out.println(sc.nextLine());
+    }
+
+    private static class Lecteur implements Runnable
+    {
+        private BufferedReader in;
+
+        Lecteur(BufferedReader br)
+        {
+            this.in = br;
+        }
+
+        public void run()
+        {
+            while (true)
+            {
+                try
+                {
+                    execute(in.readLine());
+                }
+                catch (IOException e)
+                {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+        private void execute(String s)
+        {
+            System.out.println(s);
+        }
     }
 }
