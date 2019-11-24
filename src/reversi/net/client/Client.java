@@ -21,6 +21,7 @@ public class Client
 
         out.println(sc.nextLine());
 
-        System.out.println(in.readLine());
+        while (true)
+            System.out.println(in.readLine());
     }
 }

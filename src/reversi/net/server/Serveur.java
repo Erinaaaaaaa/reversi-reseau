@@ -9,11 +9,13 @@ public class Serveur
 {
     private ServerSocket ss;
 
-    private ArrayList<Gestionnaire> pool;
+    private ArrayList<Gestionnaire> poolGestionnaire;
+    private ArrayList<Groupe> poolGroupe;
 
     public Serveur()
     {
-        pool = new ArrayList<>();
+        poolGestionnaire = new ArrayList<>();
+        poolGroupe = new ArrayList<>();
 
         try
         {
@@ -34,8 +36,20 @@ public class Serveur
                 Socket s = ss.accept();
                 System.out.println("[SERV] Nouvelle connexion!");
                 Gestionnaire g = new Gestionnaire(s);
-                pool.add(g);
+                poolGestionnaire.add(g);
                 new Thread(g).start();
+
+                if (poolGestionnaire.size() == 4)
+                {
+                    Groupe grp = new Groupe(poolGestionnaire.get(0),
+                            poolGestionnaire.get(1),
+                            poolGestionnaire.get(2),
+                            poolGestionnaire.get(3));
+
+                    poolGroupe.add(grp);
+
+                    new Thread(grp).start();
+                }
             }
         }
         catch (IOException e)

@@ -30,12 +30,22 @@ public class Gestionnaire implements Runnable
             String str = in.readLine();
             System.out.println("[GEST] Connexion identifiée: " + str);
             out.println("Bienvenue " + str);
-            s.close();
+            // s.close();
         }
         catch (IOException e)
         {
             e.printStackTrace();
         }
         System.out.println("[GEST] Fin exécution du gestionnaire");
+    }
+
+    public void println(String text)
+    {
+        out.println(text);
+    }
+
+    public boolean connecte()
+    {
+        return s.isConnected();
     }
 }
