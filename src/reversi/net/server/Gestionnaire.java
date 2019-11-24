@@ -24,11 +24,12 @@ public class Gestionnaire implements Runnable
     public void run()
     {
         System.out.println("[GEST] Exécution du gestionnaire");
-        out.println("println");
-        out.print("print");
-        out.flush();
         try
         {
+            out.println("Quel est votre nom?");
+            String str = in.readLine();
+            System.out.println("[GEST] Connexion identifiée: " + str);
+            out.println("Bienvenue " + str);
             s.close();
         }
         catch (IOException e)

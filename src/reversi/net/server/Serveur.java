@@ -35,7 +35,7 @@ public class Serveur
                 System.out.println("[SERV] Nouvelle connexion!");
                 Gestionnaire g = new Gestionnaire(s);
                 pool.add(g);
-                g.run();
+                new Thread(g).start();
             }
         }
         catch (IOException e)
