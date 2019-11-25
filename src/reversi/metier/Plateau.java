@@ -32,26 +32,30 @@ public class Plateau
 
                 /*
                       a
-                    C D
-                  C A B D
-                b B D C A
-                    B A
+                  A C A C
+                  B D B D
+                b A C A C
+                  B D B D
                  */
+                this.tabJetons[b-2][a-2] = joueurs.get(0).getJeton();
                 this.tabJetons[b-2][a-1] = joueurs.get(2).getJeton();
-                this.tabJetons[b-2][a  ] = joueurs.get(3).getJeton();
+                this.tabJetons[b-2][a  ] = joueurs.get(0).getJeton();
+                this.tabJetons[b-2][a+1] = joueurs.get(2).getJeton();
 
-                this.tabJetons[b-1][a-2] = joueurs.get(2).getJeton();
-                this.tabJetons[b-1][a-1] = joueurs.get(0).getJeton();
+                this.tabJetons[b-1][a-2] = joueurs.get(1).getJeton();
+                this.tabJetons[b-1][a-1] = joueurs.get(3).getJeton();
                 this.tabJetons[b-1][a  ] = joueurs.get(1).getJeton();
                 this.tabJetons[b-1][a+1] = joueurs.get(3).getJeton();
 
-                this.tabJetons[b  ][a-2] = joueurs.get(1).getJeton();
-                this.tabJetons[b  ][a-1] = joueurs.get(3).getJeton();
-                this.tabJetons[b  ][a  ] = joueurs.get(2).getJeton();
-                this.tabJetons[b  ][a+1] = joueurs.get(0).getJeton();
+                this.tabJetons[b  ][a-2] = joueurs.get(0).getJeton();
+                this.tabJetons[b  ][a-1] = joueurs.get(2).getJeton();
+                this.tabJetons[b  ][a  ] = joueurs.get(0).getJeton();
+                this.tabJetons[b  ][a+1] = joueurs.get(2).getJeton();
 
-                this.tabJetons[b+1][a-1] = joueurs.get(1).getJeton();
-                this.tabJetons[b+1][a  ] = joueurs.get(0).getJeton();
+                this.tabJetons[b+1][a-2] = joueurs.get(1).getJeton();
+                this.tabJetons[b+1][a-1] = joueurs.get(3).getJeton();
+                this.tabJetons[b+1][a  ] = joueurs.get(1).getJeton();
+                this.tabJetons[b+1][a+1] = joueurs.get(3).getJeton();
 
                 break;
             }
