@@ -7,65 +7,48 @@ import java.util.ArrayList;
 
 public class Serveur
 {
-    private ServerSocket ss;
-
-    private ArrayList<Gestionnaire> poolGestionnaire;
-    private ArrayList<Groupe> poolGroupe;
-
-    public Serveur()
+    public static void main(String[] args) throws IOException, InterruptedException
     {
-        poolGestionnaire = new ArrayList<>();
-        poolGroupe = new ArrayList<>();
-
-        try
-        {
-            ss = new ServerSocket(57300);
-        }
-        catch (IOException e)
-        {
-            e.printStackTrace();
-        }
-    }
-
-    public void run()
-    {
-        try
-        {
-            while (true)
-            {
-                Socket s = ss.accept();
-                System.out.println("[SERV] Nouvelle connexion!");
-                Gestionnaire g = new Gestionnaire(s);
-                poolGestionnaire.add(g);
-                new Thread(g).start();
-
-                if (poolGestionnaire.size() == 4)
-                {
-                    Groupe grp = new Groupe(poolGestionnaire.get(0),
-                            poolGestionnaire.get(1),
-                            poolGestionnaire.get(2),
-                            poolGestionnaire.get(3));
-
-                    poolGroupe.add(grp);
-
-                    new Thread(grp).start();
-                }
-            }
-        }
-        catch (IOException e)
-        {
-            e.printStackTrace();
-        }
-    }
-
-    public static void main(String[] args) throws InterruptedException
-    {
-        Serveur s = new Serveur();
-        s.run();
-
+        new Serveur().run();
         while (true)
         {
             Thread.sleep(500);
+        }
+    }
+
+    private ServerSocket ss;
+
+    private ArrayList<Gestionnaire> alGest;
+    private ArrayList<Thread> alThread;
+
+    public Serveur() throws IOException
+    {
+        this.ss = new ServerSocket(57300);
+
+        this.alGest = new ArrayList<>();
+        this.alThread = new ArrayList<>();
+    }
+
+    public void run() throws IOException
+    {
+        System.out.println("Ecoute...");
+        while (true)
+        {
+            Socket s = ss.accept();
+            System.out.println("Connexion acceptée");
+            Gestionnaire g = new Gestionnaire(s, this);
+            if (alGest.size() == 2)
+            {
+
+            }
+        }
+    }
+
+    public void broadcast(String text)
+    {
+        for (Gestionnaire g : alGest)
+        {
+            g.println(text);
         }
     }
 }

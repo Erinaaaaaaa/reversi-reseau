@@ -9,13 +9,18 @@ import java.net.Socket;
 public class Gestionnaire implements Runnable
 {
     private Socket s;
+    private Serveur serv;
+    private Groupe grp;
+
+    private String nom;
 
     private BufferedReader in;
     private PrintWriter out;
 
-    public Gestionnaire(Socket s) throws IOException
+    public Gestionnaire(Socket s, Serveur serv) throws IOException
     {
         this.s = s;
+        this.serv = serv;
 
         in = new BufferedReader(new InputStreamReader(s.getInputStream()));
         out = new PrintWriter(s.getOutputStream(), true);
@@ -23,20 +28,31 @@ public class Gestionnaire implements Runnable
 
     public void run()
     {
-        System.out.println("[GEST] Exécution du gestionnaire");
         try
         {
-            out.println("Quel est votre nom?");
-            String str = in.readLine();
-            System.out.println("[GEST] Connexion identifiée: " + str);
-            out.println("Bienvenue " + str);
-            // s.close();
+            out.println("Tu tapel coman");
+            nom = in.readLine();
+            serv.broadcast("<" + nom + " a rejoint la discussion>");
+
+            while (true)
+            {
+                String input = in.readLine();
+
+                if (input == null)
+                {
+                    s.close();
+                    serv.broadcast("<" + nom + " a quitté la discussion>");
+                    return;
+                }
+
+                serv.broadcast("[" + nom + "] " + input);
+            }
+
         }
         catch (IOException e)
         {
             e.printStackTrace();
         }
-        System.out.println("[GEST] Fin exécution du gestionnaire");
     }
 
     public void println(String text)
@@ -44,8 +60,13 @@ public class Gestionnaire implements Runnable
         out.println(text);
     }
 
-    public boolean connecte()
+    public Groupe getGrp()
     {
-        return s.isConnected();
+        return grp;
+    }
+
+    public void setGrp(Groupe grp)
+    {
+        this.grp = grp;
     }
 }
