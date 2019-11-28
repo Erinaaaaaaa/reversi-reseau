@@ -9,6 +9,7 @@ public class PanelInfo extends JPanel implements ActionListener {
 
     Controleur ctrl;
     JPanel infoJoueurs;
+    JPanel pChat;
     PanelInfoJoueur[] pInfoJoueurs;
 
     public PanelInfo(Controleur c){
@@ -20,6 +21,9 @@ public class PanelInfo extends JPanel implements ActionListener {
         this.pInfoJoueurs = new PanelInfoJoueur[this.ctrl.getNombreJoueurs()];
         this.infoJoueurs = new JPanel();
         this.infoJoueurs.setLayout(new GridLayout(4,1,0,15));
+
+        this.pChat = new PanelChat(ctrl);
+        this.add(this.pChat,"South");
 
 
         for(int i = 0; i < this.pInfoJoueurs.length; i++)
