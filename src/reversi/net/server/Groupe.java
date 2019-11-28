@@ -8,10 +8,10 @@ public class Groupe implements Runnable
     {
         this.gestionnaires = gestionnaires;
 
-        broacast("Groupe de " + gestionnaires.length + " gestionnaires!");
+        broadcast("Groupe de " + gestionnaires.length + " gestionnaires!");
     }
 
-    public void broacast(String text)
+    public void broadcast(String text)
     {
         for (Gestionnaire g : gestionnaires)
         {
@@ -32,7 +32,7 @@ public class Groupe implements Runnable
             {
                 e.printStackTrace();
             }
-            broacast("Oof");
+            broadcast("Oof");
         }
     }
 }
