@@ -1,10 +1,10 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="Application GUI" type="Application" factoryName="Application">
-    <option name="MAIN_CLASS_NAME" value="reversi.gui.ControleurLocal" />
+  <configuration default="false" name="GUI réseau" type="Application" factoryName="Application">
+    <option name="MAIN_CLASS_NAME" value="reversi.gui.ControleurReseau" />
     <module name="reversi-reseau" />
     <extension name="coverage">
       <pattern>
-        <option name="PATTERN" value="reversi.gui.composants.*" />
+        <option name="PATTERN" value="reversi.gui.*" />
         <option name="ENABLED" value="true" />
       </pattern>
     </extension>

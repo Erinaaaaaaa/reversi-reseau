@@ -1,9 +1,0 @@
-<component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="Application CUI" type="Application" factoryName="Application">
-    <option name="MAIN_CLASS_NAME" value="reversi.cui.Main" />
-    <module name="reversi-reseau" />
-    <method v="2">
-      <option name="Make" enabled="true" />
-    </method>
-  </configuration>
-</component>

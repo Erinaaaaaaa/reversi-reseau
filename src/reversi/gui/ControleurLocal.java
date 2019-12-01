@@ -1,12 +1,13 @@
 package reversi.gui;
 
+import reversi.gui.composants.FrameJeu;
 import reversi.metier.Joueur;
 import reversi.metier.Partie;
-import reversi.metier.Plateau;
 
 import javax.swing.*;
 
-public class Controleur{
+public class ControleurLocal implements IControleur
+{
 
     private Partie   partie;
     private FrameJeu IHM;
@@ -14,7 +15,7 @@ public class Controleur{
 
     private int joueur;
 
-    public Controleur()
+    public ControleurLocal()
     {
 
         // Appel popup nb joueurs
@@ -62,7 +63,7 @@ public class Controleur{
     public String getNomJoueur(int i){return this.partie.getJoueurs()[i].getNom() ;}
     public int    getNombreJoueurs(){return this.partie.getJoueurs().length;}
     public int    getScoreJoueur(int i){
-       return this.partie.getScore(this.partie.getJoueurs()[i]);
+        return this.partie.getScore(this.partie.getJoueurs()[i]);
     }
     public int    getScoreJoueur(Joueur j){
         return this.partie.getScore(j);
@@ -90,7 +91,7 @@ public class Controleur{
 
 
     public static void main(String[] args) throws Exception {
-        new Controleur();
+        new ControleurLocal();
     }
 
 

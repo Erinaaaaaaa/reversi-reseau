@@ -7,12 +7,12 @@ import java.awt.event.ActionListener;
 
 public class PanelInfo extends JPanel implements ActionListener {
 
-    Controleur ctrl;
+    IControleur ctrl;
     JPanel infoJoueurs;
     JPanel pChat;
     PanelInfoJoueur[] pInfoJoueurs;
 
-    public PanelInfo(Controleur c){
+    public PanelInfo(IControleur c){
 
         this.ctrl = c;
 

@@ -1,6 +1,6 @@
 package reversi.gui;
 
-import reversi.gui.etc.RoundedButton;
+import reversi.gui.composants.RoundedButton;
 import reversi.metier.Joueur;
 
 import java.awt.*;
@@ -10,10 +10,10 @@ import javax.swing.*;
 
 public class PanelPlateau extends JPanel implements ActionListener {
 
-    private Controleur ctrl;
+    private IControleur ctrl;
     private JButton[][] tabBouton;
 
-    public PanelPlateau(Controleur c)
+    public PanelPlateau(IControleur c)
     {
         this.ctrl = c;
 

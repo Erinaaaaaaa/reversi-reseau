@@ -9,11 +9,11 @@ import java.awt.event.ActionListener;
 
 public class PanelChat extends JPanel implements ActionListener {
 
-        Controleur ctrl;
+        IControleur ctrl;
         JTextField affichage;
         JTextField ecrire;
 
-        public PanelChat(Controleur c){
+        public PanelChat(IControleur c){
             this.ctrl = c;
 
             this.setLayout(new BorderLayout());

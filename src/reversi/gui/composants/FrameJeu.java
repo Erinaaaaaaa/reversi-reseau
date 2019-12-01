@@ -7,9 +7,9 @@ public class FrameJeu extends JFrame {
 
     private PanelPlateau pPlateau;
     private PanelInfo pInfo;
-    private Controleur ctrl;
+    private IControleur ctrl;
 
-    public FrameJeu(Controleur c){
+    public FrameJeu(IControleur c){
 
 
 

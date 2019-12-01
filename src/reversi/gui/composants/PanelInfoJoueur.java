@@ -4,12 +4,11 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.text.Normalizer;
 
 
 public class PanelInfoJoueur extends JPanel implements ActionListener {
 
-    Controleur ctrl;
+    IControleur ctrl;
 
     private JLabel lblJoueur;
     private JLabel lblScore;
@@ -19,7 +18,7 @@ public class PanelInfoJoueur extends JPanel implements ActionListener {
 
     private int numJoueur;
 
-    public PanelInfoJoueur(Controleur c, int numJoueur){
+    public PanelInfoJoueur(IControleur c, int numJoueur){
 
         this.ctrl = c;
         this.numJoueur = numJoueur;
