@@ -1,5 +1,6 @@
-package reversi.gui;
+package reversi.gui.composants;
 
+import reversi.gui.IControleur;
 import reversi.gui.composants.RoundedButton;
 import reversi.metier.Joueur;
 

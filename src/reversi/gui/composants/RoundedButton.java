@@ -1,4 +1,4 @@
-package reversi.gui.etc;
+package reversi.gui.composants;
 
 import javax.swing.*;
 import java.awt.*;
