@@ -12,39 +12,56 @@ import java.awt.event.ActionListener;
 public class PanelChat extends JPanel implements ActionListener {
 
         IControleur ctrl;
-        JTextField affichage;
-        JTextField ecrire;
+
+        JScrollPane pane;
+
+        JTextArea affichage;
+        JTextField input;
+
+        private String message;
 
         public PanelChat(IControleur c){
             this.ctrl = c;
 
             this.setLayout(new BorderLayout());
 
+            this.message = "";
 
-            // TODO: donner une grande hauteur à l'affichage (classe Dimension)
-            this.affichage = new JTextField("");
+
+
+            this.affichage = new JTextArea("");
             this.affichage.setEnabled(false);
-            this.affichage.setHorizontalAlignment(JTextField.LEFT);
+            this.affichage.setColumns(20);
+            this.affichage.setRows(5);
+            this.affichage.setLineWrap(true);
+            this.affichage.setWrapStyleWord(true);
+            this.affichage.setDisabledTextColor(Color.BLACK);
+
+            this.pane = new JScrollPane(this.affichage);
 
 
-            this.ecrire = new JTextField("");
+            this.input = new JTextField("");
 
-            this.affichage.addActionListener(this);
-            this.ecrire.addActionListener(this);
+            this.input.addActionListener(this);
 
-            this.add(this.affichage);
-            this.add(this.ecrire,"South");
+            this.add(this.pane);
+            this.add(this.input,"South");
 
 
 
 
         }
 
+        public void setText(String str){this.message = str;}
+
         public void actionPerformed(ActionEvent e)
         {
-            String ecriture = this.ecrire.getText();
-            this.ecrire.setText("");
-            this.affichage.setText(ecriture + "\n");
+            String message = this.input.getText();
+            if (message.trim().equals("")) return;
 
+            this.ctrl.envoyerMessage(message);
+            this.input.setText("");
+
+            this.affichage.setText(this.ctrl.getMessagesChat());
         }
 }

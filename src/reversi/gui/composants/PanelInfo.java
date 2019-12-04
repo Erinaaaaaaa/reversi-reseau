@@ -1,5 +1,6 @@
 package reversi.gui.composants;
 
+import reversi.gui.ControleurLocal;
 import reversi.gui.IControleur;
 
 import javax.swing.*;
@@ -24,9 +25,11 @@ public class PanelInfo extends JPanel implements ActionListener {
         this.infoJoueurs = new JPanel();
         this.infoJoueurs.setLayout(new GridLayout(4,1,0,15));
 
-        this.pChat = new PanelChat(ctrl);
-        this.add(this.pChat,"South");
-
+        // if (!(this.ctrl instanceof ControleurLocal))
+        {
+            this.pChat = new PanelChat(ctrl);
+            this.add(this.pChat, BorderLayout.CENTER);
+        }
 
         for(int i = 0; i < this.pInfoJoueurs.length; i++)
         {

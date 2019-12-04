@@ -26,5 +26,8 @@ public interface IControleur
     boolean jouer(int x, int y);
     boolean bloquee();
 
+    void envoyerMessage(String message);
+    String getMessagesChat();
+
     void majIHM();
 }

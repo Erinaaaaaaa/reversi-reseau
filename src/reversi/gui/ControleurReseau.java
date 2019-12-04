@@ -115,6 +115,18 @@ public class ControleurReseau implements IControleur
     }
 
     @Override
+    public void envoyerMessage(String message)
+    {
+
+    }
+
+    @Override
+    public String getMessagesChat()
+    {
+        return null;
+    }
+
+    @Override
     public void majIHM()
     {
 

@@ -15,6 +15,8 @@ public class ControleurLocal implements IControleur
 
     private int joueur;
 
+    String messages = "";
+
     public ControleurLocal()
     {
 
@@ -83,6 +85,17 @@ public class ControleurLocal implements IControleur
     public boolean jouer(int x, int y){return this.partie.jouer(x,y);}
 
     public boolean bloquee(){return this.partie.bloquee();}
+
+
+    public void envoyerMessage(String message)
+    {
+        this.messages += "\n[Abruti] " + message;
+    }
+
+    public String getMessagesChat()
+    {
+        return this.messages;
+    }
 
     public void majIHM() {
         IHM.majIHM();
