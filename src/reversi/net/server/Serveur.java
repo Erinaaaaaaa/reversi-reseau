@@ -45,7 +45,7 @@ public class Serveur implements Runnable
                     for (Gestionnaire tmp : gests)
                         alGestAttente.remove(tmp);
 
-                    Partie grp = new Partie(gests);
+                    Groupe grp = new Groupe(gests);
 
                     new Thread(grp).start();
                 }

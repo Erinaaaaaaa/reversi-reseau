@@ -3,43 +3,34 @@ package reversi.gui;
 import reversi.gui.composants.FrameJeu;
 import reversi.metier.Couleur;
 import reversi.metier.Joueur;
+import reversi.metier.Partie;
 import reversi.net.client.Client;
 
 import javax.swing.*;
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class ControleurReseau implements IControleur
 {
     private String nom;
 
     private FrameJeu ihm;
+    private Partie p;
 
     private Client c;
 
-    // Attrs temporaires
-    private Joueur[] joueurs = {
-            new Joueur("sdfsdfs"),
-            new Joueur("dfsdfsdf")
-    };
-
-    public ControleurReseau() throws IOException
+    public ControleurReseau() throws IOException, InterruptedException
     {
-        // Init temporaire
-        this.joueurs[0].setCouleur(Couleur.NOIR);
-        this.joueurs[1].setCouleur(Couleur.VERT);
-
         // Demande du nom
-        // String nom = JOptionPane.showInputDialog(null, "Quel est votre nom?", "Reversi", JOptionPane.QUESTION_MESSAGE);
+        String nom = JOptionPane.showInputDialog(null, "Quel est votre nom?", "Reversi", JOptionPane.QUESTION_MESSAGE);
 
-        // if (nom != null && !nom.trim().equals(""))
-        //     this.nom = nom;
-        // else
-        // {
-        //     System.err.println("Aucun nom choisi, fermeture du programme.");
-        //     System.exit(1);
-        // }
-
-        this.nom = "nword";
+        if (nom != null && !nom.trim().equals(""))
+            this.nom = nom;
+        else
+        {
+            System.err.println("Aucun nom choisi, fermeture du programme.");
+            System.exit(1);
+        }
 
         this.c = new Client("localhost", 57300);
         c.println(this.nom);
@@ -52,104 +43,133 @@ public class ControleurReseau implements IControleur
         System.out.println();
     }
 
-    private void run() throws IOException
+    private void run() throws IOException, InterruptedException
     {
-        System.out.println("Entree dans run()");
+        System.out.println("Entree dans la boucle de lecture");
         while (true)
         {
             String txt = c.readLine();
-            System.out.println(txt);
+            System.out.println("[CMD] " + txt);
+
+            String[] cmd = txt.split(":");
+
+            // GESTION COMMANDES
+            switch (cmd[0])
+            {
+                // INITIALISATION DE PARTIE
+                case "11":
+                {
+                    ArrayList<Joueur> js = new ArrayList<>();
+
+                    for (int i = 1; i < cmd.length; i++)
+                    {
+                        String[] obj = cmd[i].split(";");
+                        Joueur j = new Joueur(obj[0]);
+                        j.setJeton(obj[1].charAt(0));
+                        js.add(j);
+                    }
+
+                    this.p = new Partie(js);
+
+                    GestionnaireIhm tmpIhm = new GestionnaireIhm(this);
+                    new Thread(tmpIhm).start();
+
+                    Thread.sleep(1000);
+
+                    this.ihm = tmpIhm.getIhm();
+                }
+            }
         }
     }
 
     @Override
     public int getLargeurPlateau()
     {
-        return 2;
+        return this.p.getPlateau()[0].length;
     }
 
     @Override
     public int getHauteurPlateau()
     {
-        return 2;
+        return this.p.getPlateau().length;
     }
 
     @Override
     public char getCasePlateau(int x, int y)
     {
-        return 'A';
+        return this.p.getPlateau()[y][x];
     }
 
     @Override
     public String getNomJoueur(int i)
     {
-        return "null";
+        return this.p.getJoueurs()[i].getNom();
     }
 
     @Override
     public int getNombreJoueurs()
     {
-        return 2;
+        return this.p.getJoueurs().length;
     }
 
     @Override
     public int getScoreJoueur(int i)
     {
-        return 2;
+        return getScoreJoueur(getJoueur(i));
     }
 
     @Override
     public int getScoreJoueur(Joueur j)
     {
-        return 3;
+        return this.p.getScore(j);
     }
 
     @Override
     public Joueur getJoueurCourant()
     {
-        return joueurs[0];
+        return this.p.getJoueurCourant();
     }
 
     @Override
     public Joueur getJoueur(int i)
     {
-        return joueurs[i];
+        return this.p.getJoueurs()[i];
     }
 
     @Override
     public Joueur getJoueur(char c)
     {
-        return joueurs[0];
+        return this.p.getJoueur(c);
     }
 
     @Override
     public Joueur[] getClassement()
     {
-        return joueurs;
+        return this.p.getClassement();
     }
 
     @Override
     public boolean peutJouer()
     {
-        return false;
+        return this.p.peutJouer();
     }
 
     @Override
     public boolean peutJouer(int x, int y)
     {
-        return false;
+        return this.p.peutJouer(x,y);
     }
 
     @Override
     public boolean jouer(int x, int y)
     {
-        return false;
+        return this.p.jouer(x,y);
     }
 
     @Override
     public boolean bloquee()
     {
-        return true;
+        return this.p.bloquee();
     }
 
     @Override
@@ -167,10 +187,10 @@ public class ControleurReseau implements IControleur
     @Override
     public void majIHM()
     {
-
+        this.ihm.majIHM();
     }
 
-    public static void main(String[] args) throws IOException
+    public static void main(String[] args) throws IOException, InterruptedException
     {
         new ControleurReseau();
     }

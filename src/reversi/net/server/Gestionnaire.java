@@ -10,7 +10,7 @@ public class Gestionnaire
 {
     private Socket s;
     private Serveur serv;
-    private Partie grp;
+    private Groupe grp;
 
     private int loops = 0;
 
@@ -36,12 +36,12 @@ public class Gestionnaire
     public String readLine() throws IOException
     { return in.readLine(); }
 
-    public Partie getGrp()
+    public Groupe getGrp()
     {
         return grp;
     }
 
-    public void setGrp(Partie grp)
+    public void setGrp(Groupe grp)
     {
         this.grp = grp;
     }

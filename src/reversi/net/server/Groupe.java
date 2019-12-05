@@ -1,18 +1,18 @@
 package reversi.net.server;
 
-import com.sun.org.apache.bcel.internal.generic.GETFIELD;
-import reversi.metier.Couleur;
 import reversi.metier.Joueur;
+import reversi.metier.Partie;
 
 import java.io.IOException;
 
-public class Partie implements Runnable
+public class Groupe implements Runnable
 {
     private Gestionnaire[] gestionnaires;
 
     private Joueur[] joueurs;
+    private Partie partie;
 
-    public Partie(Gestionnaire... gestionnaires)
+    public Groupe(Gestionnaire... gestionnaires)
     {
         this.gestionnaires = gestionnaires;
         this.joueurs = new Joueur[gestionnaires.length];
@@ -23,11 +23,35 @@ public class Partie implements Runnable
         try
         {
             preparerJoueurs();
+            preparerPartie();
+            envoyerInfosPartie();
         }
         catch (IOException e)
         {
             e.printStackTrace();
         }
+    }
+
+    private void envoyerInfosPartie()
+    {
+        StringBuilder sb = new StringBuilder();
+
+        sb.append("11");
+
+        for (Joueur j : joueurs)
+        {
+            sb.append(":")
+                    .append(j.getNom())
+                    .append(";")
+                    .append(j.getJeton());
+        }
+
+        broadcast(sb.toString());
+    }
+
+    private void preparerPartie()
+    {
+        this.partie = new Partie(this.joueurs);
     }
 
     public void broadcast(String text)
@@ -40,17 +64,10 @@ public class Partie implements Runnable
 
     private void preparerJoueurs() throws IOException
     {
-        StringBuilder sb = new StringBuilder();
-        sb.append("1");
-
         for (int i = 0; i < gestionnaires.length; i++)
         {
             Gestionnaire g = gestionnaires[i];
             joueurs[i] = new Joueur(g.readLine());
-            joueurs[i].setJeton((char)('A' + i));
-            sb.append(":").append(joueurs[i].getNom()).append(';').append((char)('A' + i));
         }
-
-        broadcast(sb.toString());
     }
 }
