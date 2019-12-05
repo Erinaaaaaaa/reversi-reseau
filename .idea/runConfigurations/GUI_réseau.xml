@@ -1,5 +1,5 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="GUI réseau" type="Application" factoryName="Application">
+  <configuration default="false" name="GUI réseau" type="Application" factoryName="Application" singleton="false">
     <option name="MAIN_CLASS_NAME" value="reversi.gui.ControleurReseau" />
     <module name="reversi-reseau" />
     <extension name="coverage">

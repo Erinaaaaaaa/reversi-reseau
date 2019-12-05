@@ -19,7 +19,6 @@ public interface IControleur
     Joueur getJoueur(int i);
     Joueur getJoueur(char c);
     Joueur[] getClassement();
-    void   joueurSuivant();
 
     boolean peutJouer();
     boolean peutJouer(int x, int y);

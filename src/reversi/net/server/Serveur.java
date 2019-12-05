@@ -5,48 +5,61 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
 
-public class Serveur
+public class Serveur implements Runnable
 {
-    public static void main(String[] args) throws IOException, InterruptedException
+    public static void main(String[] args) throws IOException
     {
-        new Serveur().run();
-        while (true)
-        {
-            Thread.sleep(500);
-        }
+        new Thread(new Serveur()).start();
     }
 
     private ServerSocket ss;
 
-    private ArrayList<Gestionnaire> alGest;
-    private ArrayList<Thread> alThread;
+    private ArrayList<Gestionnaire> alGestAttente;
 
     public Serveur() throws IOException
     {
         this.ss = new ServerSocket(57300);
 
-        this.alGest = new ArrayList<>();
-        this.alThread = new ArrayList<>();
+        this.alGestAttente = new ArrayList<>();
     }
 
-    public void run() throws IOException
+    public void run()
     {
-        System.out.println("Ecoute...");
-        while (true)
+        try
         {
-            Socket s = ss.accept();
-            System.out.println("Connexion acceptée");
-            Gestionnaire g = new Gestionnaire(s, this);
-            if (alGest.size() == 2)
+            System.out.println("Ecoute...");
+            while (true)
             {
+                Socket s = ss.accept();
+                System.out.println("Connexion acceptée");
+                Gestionnaire g = new Gestionnaire(s, this);
+                this.alGestAttente.add(g);
+                if (alGestAttente.size() == 2)
+                {
+                    Gestionnaire[] gests = new Gestionnaire[]
+                            {
+                                    alGestAttente.get(0),
+                                    alGestAttente.get(1)
+                            };
 
+                    for (Gestionnaire tmp : gests)
+                        alGestAttente.remove(tmp);
+
+                    Partie grp = new Partie(gests);
+
+                    new Thread(grp).start();
+                }
             }
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
         }
     }
 
     public void broadcast(String text)
     {
-        for (Gestionnaire g : alGest)
+        for (Gestionnaire g : alGestAttente)
         {
             g.println(text);
         }

@@ -6,11 +6,13 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
 
-public class Gestionnaire implements Runnable
+public class Gestionnaire
 {
     private Socket s;
     private Serveur serv;
-    private Groupe grp;
+    private Partie grp;
+
+    private int loops = 0;
 
     private String nom;
 
@@ -26,46 +28,20 @@ public class Gestionnaire implements Runnable
         out = new PrintWriter(s.getOutputStream(), true);
     }
 
-    public void run()
-    {
-        try
-        {
-            out.println("Tu tapel coman");
-            nom = in.readLine();
-            serv.broadcast("<" + nom + " a rejoint la discussion>");
-
-            while (true)
-            {
-                String input = in.readLine();
-
-                if (input == null)
-                {
-                    s.close();
-                    serv.broadcast("<" + nom + " a quitté la discussion>");
-                    return;
-                }
-
-                serv.broadcast("[" + nom + "] " + input);
-            }
-
-        }
-        catch (IOException e)
-        {
-            e.printStackTrace();
-        }
-    }
-
     public void println(String text)
     {
         out.println(text);
     }
 
-    public Groupe getGrp()
+    public String readLine() throws IOException
+    { return in.readLine(); }
+
+    public Partie getGrp()
     {
         return grp;
     }
 
-    public void setGrp(Groupe grp)
+    public void setGrp(Partie grp)
     {
         this.grp = grp;
     }

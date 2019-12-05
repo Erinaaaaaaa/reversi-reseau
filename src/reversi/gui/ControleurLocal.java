@@ -76,9 +76,6 @@ public class ControleurLocal implements IControleur
 
     public Joueur[] getClassement(){return this.partie.getClassement();}
 
-    public void   joueurSuivant() { this.partie.joueurSuivant();
-        System.out.println(this.getJoueurCourant().getNom());}
-
 
     public boolean peutJouer(){return this.partie.peutJouer();}
     public boolean peutJouer(int x, int y){return this.partie.peutJouer(x,y);}
