@@ -20,6 +20,24 @@ public class ControleurReseau implements IControleur
 
     public ControleurReseau() throws IOException, InterruptedException
     {
+        // Demande de l'adresse
+        String[] addr = JOptionPane.showInputDialog(
+                null,
+                "Adresse du serveur?",
+                "Reversi",
+                JOptionPane.QUESTION_MESSAGE).split(":", 2);
+
+        String host = "localhost";
+        int port = 57300;
+
+        if (addr.length >= 1 && !addr[0].trim().equals(""))
+            host = addr[0];
+
+        if (addr.length >= 2)
+            port = Integer.parseInt(addr[1]);
+
+        System.out.println("Serveur: " + host + ":" + port);
+
         // Demande du nom
         String nom = JOptionPane.showInputDialog(null, "Quel est votre nom?", "Reversi", JOptionPane.QUESTION_MESSAGE);
 
