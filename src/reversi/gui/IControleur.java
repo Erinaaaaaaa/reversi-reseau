@@ -1,9 +1,6 @@
 package reversi.gui;
 
 import reversi.metier.Joueur;
-import reversi.metier.Partie;
-
-import javax.swing.*;
 
 public interface IControleur
 {
@@ -22,7 +19,7 @@ public interface IControleur
 
     boolean peutJouer();
     boolean peutJouer(int x, int y);
-    boolean jouer(int x, int y);
+    void jouer(int x, int y);
     boolean bloquee();
 
     void envoyerMessage(String message);

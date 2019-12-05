@@ -79,7 +79,9 @@ public class ControleurLocal implements IControleur
 
     public boolean peutJouer(){return this.partie.peutJouer();}
     public boolean peutJouer(int x, int y){return this.partie.peutJouer(x,y);}
-    public boolean jouer(int x, int y){return this.partie.jouer(x,y);}
+    public void jouer(int x, int y){
+        this.partie.jouer(x, y);
+    }
 
     public boolean bloquee(){return this.partie.bloquee();}
 

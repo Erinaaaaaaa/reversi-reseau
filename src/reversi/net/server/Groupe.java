@@ -38,8 +38,9 @@ public class Groupe implements Runnable
 
         sb.append("11");
 
-        for (Joueur j : joueurs)
+        for (int i = 0, joueursLength = joueurs.length; i < joueursLength; i++)
         {
+            Joueur j = joueurs[i];
             sb.append(":")
                     .append(j.getNom())
                     .append(";")
@@ -68,6 +69,19 @@ public class Groupe implements Runnable
         {
             Gestionnaire g = gestionnaires[i];
             joueurs[i] = new Joueur(g.readLine());
+            gestionnaires[i].setJoueur(joueurs[i]);
+            gestionnaires[i].setGrp(this);
+            new Thread(g).start();
         }
+    }
+
+    public Joueur getJoueurCourant()
+    {
+        return this.partie.getJoueurCourant();
+    }
+
+    public boolean jouer(int x, int y)
+    {
+        return this.partie.jouer(x, y);
     }
 }

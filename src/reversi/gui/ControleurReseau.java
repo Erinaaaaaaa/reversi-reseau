@@ -1,7 +1,6 @@
 package reversi.gui;
 
 import reversi.gui.composants.FrameJeu;
-import reversi.metier.Couleur;
 import reversi.metier.Joueur;
 import reversi.metier.Partie;
 import reversi.net.client.Client;
@@ -77,6 +76,16 @@ public class ControleurReseau implements IControleur
                     Thread.sleep(1000);
 
                     this.ihm = tmpIhm.getIhm();
+                    break;
+                }
+                // JOUER
+                case "21":
+                {
+                    int x = Integer.parseInt(cmd[1]);
+                    int y = Integer.parseInt(cmd[2]);
+                    this.p.jouer(x, y);
+                    this.majIHM();
+                    break;
                 }
             }
         }
@@ -161,16 +170,19 @@ public class ControleurReseau implements IControleur
     }
 
     @Override
-    public boolean jouer(int x, int y)
-    {
-        return this.p.jouer(x,y);
-    }
-
-    @Override
     public boolean bloquee()
     {
         return this.p.bloquee();
     }
+
+    @Override
+    public void jouer(int x, int y)
+    {
+        c.println("21:" + x + ":" + y);
+    }
+
+
+
 
     @Override
     public void envoyerMessage(String message)
