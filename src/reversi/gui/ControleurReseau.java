@@ -18,9 +18,12 @@ public class ControleurReseau implements IControleur
     private String chatLog;
 
     private Client c;
+    private boolean erreurReseau;
 
     public ControleurReseau() throws IOException, InterruptedException
     {
+        this.erreurReseau = false;
+
         // Demande de l'adresse
         String[] addr = JOptionPane.showInputDialog(
                 null,
@@ -53,12 +56,6 @@ public class ControleurReseau implements IControleur
         this.c = new Client(host, port);
         c.println(this.nom);
         run();
-
-        GestionnaireIhm tmpIhm = new GestionnaireIhm(this);
-        new Thread(tmpIhm).start();
-        this.ihm = tmpIhm.getIhm();
-
-        System.out.println();
     }
 
     private void run() throws IOException, InterruptedException
@@ -67,6 +64,15 @@ public class ControleurReseau implements IControleur
         while (true)
         {
             String txt = c.readLine();
+
+            if (txt == null)
+            {
+                this.erreurReseau = true;
+                this.chatLog += "\nConnexion au serveur perdue. Impossible de continuer";
+                this.majIHM();
+                return;
+            }
+
             System.out.println("[CMD] " + txt);
 
             String[] cmd = txt.split(":");
@@ -96,6 +102,13 @@ public class ControleurReseau implements IControleur
                     Thread.sleep(1000);
 
                     this.ihm = tmpIhm.getIhm();
+                    break;
+                }
+                case "12":
+                {
+                    this.erreurReseau = true;
+                    this.chatLog += "\n" + cmd[1] + " à quitté la partie. Impossible de continuer.";
+                    this.majIHM();
                     break;
                 }
 
@@ -207,7 +220,7 @@ public class ControleurReseau implements IControleur
     @Override
     public boolean bloquee()
     {
-        return this.p.bloquee();
+        return this.p.bloquee() || this.erreurReseau;
     }
 
     @Override

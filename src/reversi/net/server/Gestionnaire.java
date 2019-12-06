@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
+import java.net.SocketException;
 
 public class Gestionnaire implements Runnable
 {
@@ -34,6 +35,13 @@ public class Gestionnaire implements Runnable
             try
             {
                 String txt = readLine();
+
+                if (txt == null)
+                {
+                    this.grp.broadcast("12:" + joueur.getNom());
+                    System.err.println("Erreur de lecture serveur [" + this.joueur.getNom() + "]");
+                    return;
+                }
 
                 System.out.print("[GEST");
                 if (joueur != null) System.out.print("-" + joueur.getNom());
@@ -81,7 +89,15 @@ public class Gestionnaire implements Runnable
     }
 
     public String readLine() throws IOException
-    { return in.readLine(); }
+    {
+        try
+        {
+            return in.readLine();
+        } catch (SocketException e)
+        {
+            return null;
+        }
+    }
 
     public Groupe getGrp()
     {

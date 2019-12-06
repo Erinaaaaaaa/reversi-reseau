@@ -41,8 +41,6 @@ public class PanelPlateau extends JPanel implements ActionListener {
 
     public void actionPerformed(ActionEvent e) {
 
-        System.out.println(((JButton) e.getSource()).getText());
-
         if(ctrl.peutJouer())
         {
             for(int y = 0; y<tabBouton.length; y++ ) {

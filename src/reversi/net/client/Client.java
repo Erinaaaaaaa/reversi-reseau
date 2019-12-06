@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
+import java.net.SocketException;
 import java.util.Scanner;
 
 public class Client
@@ -34,6 +35,14 @@ public class Client
 
     public String readLine() throws IOException
     {
-        return in.readLine();
+        try
+        {
+            return in.readLine();
+        }
+        catch (SocketException e)
+        {
+            System.err.println("Erreur de lecture client!!!!!!");
+            return null;
+        }
     }
 }
