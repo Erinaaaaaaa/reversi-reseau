@@ -4,6 +4,8 @@ import reversi.gui.IControleur;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowFocusListener;
 
 public class FrameJeu extends JFrame {
 
@@ -34,6 +36,21 @@ public class FrameJeu extends JFrame {
         this.pInfo = new PanelInfo(this.ctrl);
         this.add(this.pInfo);
 
+        this.addWindowFocusListener(new WindowFocusListener()
+        {
+            @Override
+            public void windowGainedFocus(WindowEvent windowEvent)
+            {
+                if (!ctrl.bloquee())
+                    repaint();
+            }
+
+            @Override
+            public void windowLostFocus(WindowEvent windowEvent)
+            {
+
+            }
+        });
 
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setVisible(true);
