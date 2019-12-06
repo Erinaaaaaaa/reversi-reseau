@@ -49,7 +49,7 @@ public class ControleurReseau implements IControleur
             System.exit(1);
         }
 
-        this.c = new Client("localhost", 57300);
+        this.c = new Client(host, port);
         c.println(this.nom);
         run();
 
