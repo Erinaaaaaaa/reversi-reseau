@@ -12,10 +12,13 @@ public class Groupe implements Runnable
     private Joueur[] joueurs;
     private Partie partie;
 
+    private String chatLog;
+
     public Groupe(Gestionnaire... gestionnaires)
     {
         this.gestionnaires = gestionnaires;
         this.joueurs = new Joueur[gestionnaires.length];
+        this.chatLog = "Bienvenue!";
     }
 
     public void run()
@@ -24,6 +27,7 @@ public class Groupe implements Runnable
         {
             preparerJoueurs();
             preparerPartie();
+            envoyerChatLog();
             envoyerInfosPartie();
         }
         catch (IOException e)
@@ -80,8 +84,25 @@ public class Groupe implements Runnable
         return this.partie.getJoueurCourant();
     }
 
+    public void envoyerChatLog()
+    {
+        String messages = "31:" + chatLog;
+
+        messages = messages.replace("\\", "\\\\");
+        messages = messages.replace("\n", "\\n");
+
+        broadcast(messages);
+    }
+
     public boolean jouer(int x, int y)
     {
         return this.partie.jouer(x, y);
+    }
+
+    public void addMessage(Joueur joueur, String message)
+    {
+        this.chatLog += "\n[" + joueur.getNom() + "] " + message;
+
+        envoyerChatLog();
     }
 }

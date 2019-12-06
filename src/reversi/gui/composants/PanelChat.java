@@ -64,4 +64,9 @@ public class PanelChat extends JPanel implements ActionListener {
 
             this.affichage.setText(this.ctrl.getMessagesChat());
         }
+
+    public void majChat()
+    {
+        this.affichage.setText(this.ctrl.getMessagesChat());
+    }
 }

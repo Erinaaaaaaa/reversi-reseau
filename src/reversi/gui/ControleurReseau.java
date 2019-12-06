@@ -15,6 +15,7 @@ public class ControleurReseau implements IControleur
 
     private FrameJeu ihm;
     private Partie p;
+    private String chatLog;
 
     private Client c;
 
@@ -73,7 +74,8 @@ public class ControleurReseau implements IControleur
             // GESTION COMMANDES
             switch (cmd[0])
             {
-                // INITIALISATION DE PARTIE
+                // Commandes meta
+                // 11: Initialisation de partie
                 case "11":
                 {
                     ArrayList<Joueur> js = new ArrayList<>();
@@ -96,12 +98,27 @@ public class ControleurReseau implements IControleur
                     this.ihm = tmpIhm.getIhm();
                     break;
                 }
-                // JOUER
+
+                // Commandes jeu
+                // 21: placement de jeton
                 case "21":
                 {
                     int x = Integer.parseInt(cmd[1]);
                     int y = Integer.parseInt(cmd[2]);
                     this.p.jouer(x, y);
+                    this.majIHM();
+                    break;
+                }
+
+                // Commandes chat
+                // 31: réception du chatLog
+                case "31":
+                {
+                    String tmp = txt.split(":", 2)[1];
+
+                    tmp = tmp.replace("\\n", "\n");
+                    this.chatLog = tmp.replace("\\\\", "\\");
+
                     this.majIHM();
                     break;
                 }
@@ -205,19 +222,22 @@ public class ControleurReseau implements IControleur
     @Override
     public void envoyerMessage(String message)
     {
-        System.out.println("Message: " + message);
+        c.println("31:"+message.replace("\\",""));
     }
 
     @Override
     public String getMessagesChat()
     {
-        return "null";
+        return this.chatLog;
     }
 
     @Override
     public void majIHM()
     {
-        this.ihm.majIHM();
+        if (this.ihm != null)
+            this.ihm.majIHM();
+        else
+            System.err.println("IHM nulle! Impossible de la rafraîchir.");
     }
 
     public static void main(String[] args) throws IOException, InterruptedException

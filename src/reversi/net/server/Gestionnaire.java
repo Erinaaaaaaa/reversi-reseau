@@ -45,6 +45,7 @@ public class Gestionnaire implements Runnable
 
                 switch (cmd[0])
                 {
+                    // Commande de jeu
                     case "21":
                     {
                         if (this.grp.getJoueurCourant() == this.joueur)
@@ -54,6 +55,14 @@ public class Gestionnaire implements Runnable
                             if (this.grp.jouer(x, y))
                                 this.grp.broadcast("21:" + x + ":" + y);
                         }
+                        break;
+                    }
+
+                    // Commandes de chat
+                    case "31":
+                    {
+                        String message = txt.split(":", 2)[1];
+                        this.grp.addMessage(joueur, message);
                         break;
                     }
                 }

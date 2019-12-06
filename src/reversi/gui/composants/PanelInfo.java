@@ -12,7 +12,7 @@ public class PanelInfo extends JPanel implements ActionListener {
 
     IControleur ctrl;
     JPanel infoJoueurs;
-    JPanel pChat;
+    PanelChat pChat;
     PanelInfoJoueur[] pInfoJoueurs;
 
     public PanelInfo(IControleur c){
@@ -47,6 +47,7 @@ public class PanelInfo extends JPanel implements ActionListener {
 
 
     public void maj() {
+        this.pChat.majChat();
         for (PanelInfoJoueur pij : pInfoJoueurs)
         {
             pij.setGras(
