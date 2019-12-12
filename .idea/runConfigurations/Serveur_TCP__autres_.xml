@@ -1,7 +1,8 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="Serveur TCP" type="Application" factoryName="Application">
+  <configuration default="false" name="Serveur TCP (autres)" type="Application" factoryName="Application">
     <option name="MAIN_CLASS_NAME" value="reversi.net.server.Serveur" />
     <module name="reversi-reseau" />
+    <option name="PROGRAM_PARAMETERS" value="nword" />
     <method v="2">
       <option name="Make" enabled="true" />
     </method>

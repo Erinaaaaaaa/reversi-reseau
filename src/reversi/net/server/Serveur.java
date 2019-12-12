@@ -9,17 +9,36 @@ public class Serveur implements Runnable
 {
     public static void main(String[] args) throws IOException
     {
-        new Thread(new Serveur()).start();
+        if (args.length == 1)
+        {
+            switch (args[0])
+            {
+                case "2":
+                    new Thread(new Serveur(2)).start();
+                    break;
+                case "4":
+                    new Thread(new Serveur(4)).start();
+                    break;
+                default:
+                    System.err.println("Paramètre invalide");
+                    break;
+            }
+        }
+        else
+        {
+            new Thread(new Serveur(2)).start();
+        }
     }
 
     private ServerSocket ss;
+    private int nbPlayers;
 
     private ArrayList<Gestionnaire> alGestAttente;
 
-    public Serveur() throws IOException
+    public Serveur(int nbPlayers) throws IOException
     {
-        this.ss = new ServerSocket(57300);
-
+        this.ss = new ServerSocket(9001);
+        this.nbPlayers = nbPlayers;
         this.alGestAttente = new ArrayList<>();
     }
 
@@ -34,13 +53,12 @@ public class Serveur implements Runnable
                 System.out.println("Connexion acceptée");
                 Gestionnaire g = new Gestionnaire(s, this);
                 this.alGestAttente.add(g);
-                if (alGestAttente.size() == 2)
+                if (alGestAttente.size() == nbPlayers)
                 {
-                    Gestionnaire[] gests = new Gestionnaire[]
-                            {
-                                    alGestAttente.get(0),
-                                    alGestAttente.get(1)
-                            };
+                    Gestionnaire[] gests = new Gestionnaire[nbPlayers];
+
+                    for (int i = 0; i < nbPlayers; i++)
+                        gests[i] = alGestAttente.get(i);
 
                     for (Gestionnaire tmp : gests)
                         alGestAttente.remove(tmp);

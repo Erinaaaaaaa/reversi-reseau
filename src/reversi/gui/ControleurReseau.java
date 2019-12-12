@@ -32,7 +32,7 @@ public class ControleurReseau implements IControleur
                 JOptionPane.QUESTION_MESSAGE).split(":", 2);
 
         String host = "localhost";
-        int port = 57300;
+        int port = 9001;
 
         if (addr.length >= 1 && !addr[0].trim().equals(""))
             host = addr[0];
@@ -107,7 +107,7 @@ public class ControleurReseau implements IControleur
                 case "12":
                 {
                     this.erreurReseau = true;
-                    this.chatLog += "\n" + cmd[1] + " à quitté la partie. Impossible de continuer.";
+                    this.chatLog += "\n" + cmd[1] + " a quitté la partie. Impossible de continuer.";
                     this.majIHM();
                     break;
                 }
@@ -235,7 +235,8 @@ public class ControleurReseau implements IControleur
     @Override
     public void envoyerMessage(String message)
     {
-        c.println("31:"+message.replace("\\",""));
+        if (!message.contains("owo"))
+            c.println("31:"+message.replace("\\",""));
     }
 
     @Override

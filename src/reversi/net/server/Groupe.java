@@ -27,8 +27,8 @@ public class Groupe implements Runnable
         {
             preparerJoueurs();
             preparerPartie();
-            envoyerChatLog();
             envoyerInfosPartie();
+            envoyerChatLog();
         }
         catch (IOException e)
         {
@@ -42,9 +42,8 @@ public class Groupe implements Runnable
 
         sb.append("11");
 
-        for (int i = 0, joueursLength = joueurs.length; i < joueursLength; i++)
+        for (Joueur j : joueurs)
         {
-            Joueur j = joueurs[i];
             sb.append(":")
                     .append(j.getNom())
                     .append(";")

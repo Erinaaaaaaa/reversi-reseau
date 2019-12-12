@@ -2,12 +2,10 @@ package reversi.net.server;
 
 import reversi.metier.Joueur;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
+import java.io.*;
 import java.net.Socket;
 import java.net.SocketException;
+import java.nio.charset.StandardCharsets;
 
 public class Gestionnaire implements Runnable
 {
@@ -24,8 +22,8 @@ public class Gestionnaire implements Runnable
         this.s = s;
         this.serv = serv;
 
-        in = new BufferedReader(new InputStreamReader(s.getInputStream()));
-        out = new PrintWriter(s.getOutputStream(), true);
+        this.in = new BufferedReader(new InputStreamReader(s.getInputStream(), StandardCharsets.UTF_8));
+        this.out = new PrintWriter(new OutputStreamWriter(s.getOutputStream(), StandardCharsets.UTF_8), true);
     }
 
     public void run()
@@ -48,8 +46,6 @@ public class Gestionnaire implements Runnable
                 System.out.println("-CMD] " + txt);
 
                 String[] cmd = txt.split(":");
-
-                // TODO: Interpréter le NPO comme fin de partie
 
                 switch (cmd[0])
                 {

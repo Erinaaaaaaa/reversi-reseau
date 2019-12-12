@@ -35,8 +35,6 @@ public class ControleurLocal implements IControleur
                 choixNbJoueur[0]))).getNb();
         JOptionPane.showMessageDialog(null, "Vous avez choisi " + nbJoueursChoisi + " joueurs", "", JOptionPane.INFORMATION_MESSAGE);
 
-
-
         //TODO: appel popup noms joueurs
 
         this.joueurs = new Joueur[nbJoueursChoisi];
