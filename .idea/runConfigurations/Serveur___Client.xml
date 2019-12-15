@@ -1,6 +1,6 @@
 <component name="ProjectRunConfigurationManager">
   <configuration default="false" name="Serveur + Client" type="Multirun" factoryName="Multirun" separateTabs="true" startOneByOne="true" markFailedProcess="true" hideSuccessProcess="false" delayTime="1">
-    <runConfiguration name="Serveur TCP" type="Application" />
+    <runConfiguration name="Serveur TCP (default)" type="Application" />
     <runConfiguration name="GUI réseau" type="Application" />
     <method v="2" />
   </configuration>
