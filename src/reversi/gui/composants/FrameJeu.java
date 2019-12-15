@@ -15,9 +15,11 @@ public class FrameJeu extends JFrame {
 
     public FrameJeu(IControleur c){
 
+        if (c.getNomJoueurLocal() != null)
+            this.setTitle("Reversi - " + c.getNomJoueurLocal());
+        else
+            this.setTitle("Reversi");
 
-
-        this.setTitle("Reversi");
         this.setLocation(50,50);
         this.setSize(900,600);
         this.setResizable(false);

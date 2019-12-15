@@ -164,6 +164,12 @@ public class ControleurReseau implements IControleur
     }
 
     @Override
+    public String getNomJoueurLocal()
+    {
+        return this.nom;
+    }
+
+    @Override
     public int getNombreJoueurs()
     {
         return this.p.getJoueurs().length;

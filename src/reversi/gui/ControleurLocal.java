@@ -61,6 +61,13 @@ public class ControleurLocal implements IControleur
     }
 
     public String getNomJoueur(int i){return this.partie.getJoueurs()[i].getNom() ;}
+
+    @Override
+    public String getNomJoueurLocal()
+    {
+        return null;
+    }
+
     public int    getNombreJoueurs(){return this.partie.getJoueurs().length;}
     public int    getScoreJoueur(int i){
         return this.partie.getScore(this.partie.getJoueurs()[i]);

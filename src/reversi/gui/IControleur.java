@@ -9,6 +9,8 @@ public interface IControleur
     char getCasePlateau(int x, int y);
     String getNomJoueur(int i);
 
+    String getNomJoueurLocal();
+
     int    getNombreJoueurs();
     int    getScoreJoueur(int i);
     int    getScoreJoueur(Joueur j);
